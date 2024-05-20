@@ -15,16 +15,17 @@ public class SymbolTable {
     }
 
     public void print() {
-        System.out.println("\t\t\t\t\tType\t\t\t\t\t\t\t\t\tValue");
-        System.out.println("├─────────────────────────────────────────┼─────────────────────────────────────────┤");
+        System.out.println("\t\t\t\t\tType\t\t\t\t\t\t\t\t\tname\t\t\t\t\t\t\t\t\tValue\t\t\t\t\t\t\t\t\tscope level\t\t\t\t\t\t\t\t\tscope Id");
+        System.out.println("├────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼──────────────────────────────────────────┼──────────────────────────────────────────┤");
 
         for (StRow row : rows) {
-            if (row != null) {
-                System.out.printf("│ %-40s│ %-40s│%n", centerText(row.getType(), 40), centerText(row.getValue(), 40));
+            if (row!= null) {
+                System.out.printf("│%-40s│ %-40s│ %-40s│ %-40s │%-40s │%n", centerText(row.getType(), 40), centerText(row.getName (), 40), centerText(row.getValue(), 40), centerText(String.valueOf (row.getScope ().getLevel ()), 40), centerText(String.valueOf (row.getScope ().getId ()), 40));
             }
         }
 
-        System.out.println("├─────────────────────────────────────────┼─────────────────────────────────────────┤");
+        System.out.println("├────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼──────────────────────────────────────────┼──────────────────────────────────────────┤");
+
     }
 
     private String centerText(String text, int width) {
@@ -35,8 +36,6 @@ public class SymbolTable {
         int leftPadding = padding / 2;
         int rightPadding = padding - leftPadding;
 
-
-
-        return String.format("%" + leftPadding + "s%s%" + rightPadding + "s", "", text, "");
+        return String.format("%-" + leftPadding + "s%s%" + rightPadding + "s", "", text, "");
     }
 }

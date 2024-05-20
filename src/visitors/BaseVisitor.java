@@ -3,24 +3,26 @@ package visitors;
 
 import SymbolTable.SymbolTable;
 import SymbolTable.StRow;
+import SymbolTable.Scope;
 import antlr.ReactParser;
 import antlr.ReactParserBaseVisitor;
-import antlr.ReactParserVisitor;
 import ast.Models.*;
 import ast.Models.Number;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 
 public class
 
 BaseVisitor extends ReactParserBaseVisitor {
   static   SymbolTable  symbolTable = new SymbolTable();
+  static Stack <Scope> scopes = new Stack<> ();
 
     public static SymbolTable getSymbolTable() {
         return symbolTable;
@@ -416,6 +418,8 @@ BaseVisitor extends ReactParserBaseVisitor {
         function.setNode_type("Function");
         function.setCount_child(ctx.getChildCount());
         function.setLine_num(String.valueOf(ctx.getStart().getLine()));
+
+
         if (ctx.id()!=null){
             Id id = new Id ();
             id.setId (ctx.id().getText ());
@@ -428,6 +432,9 @@ BaseVisitor extends ReactParserBaseVisitor {
             function.setArguments((Arguments) visitArguments(ctx.arguments()));
             function.getChild().add(function.getArguments());
         }
+        if (ctx.OpenBrace ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         for (int i=0;i<ctx.statment().size();i++) {
             function.getStatements().add((Statement) visitStatment(ctx.statment(i)));
             function.getChild().add(function.getStatements().get(i));
@@ -436,10 +443,14 @@ BaseVisitor extends ReactParserBaseVisitor {
             function.getReturnstatments().add((Returnstatment) visitReturnstatment(ctx.returnstatment(i)));
             function.getChild().add(function.getReturnstatments().get(i));
         }
+        if (ctx.CloseBrace ()!=null){
+            scopes.pop ();
+        }
 
         StRow row = new StRow();
         row.setType(function.getNode_type());
         row.setValue(function.getNode_name());
+        row.setScope (scopes);
         symbolTable.getRows().add(row);
         return function;
     }
@@ -557,6 +568,9 @@ BaseVisitor extends ReactParserBaseVisitor {
             switchElement.getExpressions().add((Expression) visit(ctx.expression(i)));
             switchElement.getChild().add(switchElement.getExpressions().get(i));
         }
+        if (ctx.OpenBrace ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         for (int i=0;i<ctx.block().size();i++) {
             switchElement.getBlocks().add((Block) visitBlock(ctx.block(i)));
             switchElement.getChild().add(switchElement.getBlocks().get(i));
@@ -564,6 +578,9 @@ BaseVisitor extends ReactParserBaseVisitor {
         for (int i=0;i<ctx.statment().size();i++) {
             switchElement.getStatements().add((Statement) visitStatment(ctx.statment(i)));
             switchElement.getChild().add(switchElement.getStatements().get(i));
+        }
+        if (ctx.CloseBrace ()!=null){
+            scopes.pop ();
         }
 //        StRow row = new StRow();
 //        row.setType(switchElement.getNode_type());
@@ -599,9 +616,19 @@ BaseVisitor extends ReactParserBaseVisitor {
         importElement.setNode_type("Import");
         importElement.setCount_child(ctx.getChildCount());
         importElement.setLine_num(String.valueOf(ctx.getStart().getLine()));
+        if (ctx.OpenBrace ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         for (int i=0 ; i<ctx.id().size();i++){
             importElement.getIds().add( (Id) visitId(ctx.id(i)));
             importElement.getChild().add(importElement.getIds().get(i));
+        }
+        for (int i=0 ; i<ctx.hook ().size();i++){
+            importElement.getHooks ().add( visitHook (ctx.hook (i)));
+            importElement.getChild().add(importElement.getHooks ().get(i));
+        }
+        if (ctx.CloseBrace ()!=null){
+            scopes.pop ();
         }
         if (ctx.String()!=null) {
             importElement.setString(ctx.String().toString());
@@ -706,6 +733,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElementNonSelfClosing.getChild().add(jsxElementNonSelfClosing.getIds().get(i));
             StRow row = new StRow();
             row.setType (jsxElementNonSelfClosing.getIds().get(i).getId ());
+            row.setScope (scopes);
             stRowList.add (row);
         }
         for (int i=0;i<ctx.StringIn().size();i++) {
@@ -718,9 +746,15 @@ BaseVisitor extends ReactParserBaseVisitor {
                 row.setValue (ctx.StringIn().toString());
             }
         }
+        if (ctx.OpenBraceInIn ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         for (int i=0;i<ctx.ifShort().size();i++) {
             jsxElementNonSelfClosing.getIfShorts().add((IfShort) visitIfShort(ctx.ifShort(i)));
             jsxElementNonSelfClosing.getChild().add(jsxElementNonSelfClosing.getIfShorts().get(i));
+        }
+        if (ctx.CloseBraceCall ()!=null){
+            scopes.pop ();
         }
         for (int i=0;i<ctx.LETTERR().size();i++) {
             jsxElementNonSelfClosing.getLetterrs().add(ctx.LETTERR(i).toString());
@@ -730,7 +764,8 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElementNonSelfClosing.getChild().add(stringg);
             StRow row = new StRow();
             row.setType ("Text");
-            row.setValue (ctx.LETTERR().get (0).getText ());
+            row.setValue (ctx.LETTERR().get(0).getText ());
+            row.setScope (scopes);
             symbolTable.getRows().add(row);
         }
         for (int i=0;i<ctx.jsxElementIn().size();i++) {
@@ -770,6 +805,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElementSelfClosing.getChild().add(jsxElementSelfClosing.getIds().get(i));
             StRow row = new StRow();
             row.setType (jsxElementSelfClosing.getIds().get(i).getId ());
+            row.setScope (scopes);
             stRowList.add (row);
         }
         for (int i=0;i<ctx.blockIn().size();i++) {
@@ -832,6 +868,9 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setString(ctx.StringIn().get(i).toString());
             jsxElementIn.getChild().add(stringg);
         }
+        if (ctx.OpenBraceInIn ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
 
         for (int i=0;i<ctx.jsxElementIn().size();i++) {
             jsxElementIn.getJsxElementIns().add((JsxElementIn) visitJsxElementIn(ctx.jsxElementIn(i)));
@@ -843,6 +882,9 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setNode_type("LETTERR");
             stringg.setString(ctx.LETTERR().get(i).toString());
             jsxElementIn.getChild().add(stringg);
+        }
+        if (ctx.CloseBraceCall ()!=null){
+            scopes.pop ();
         }
         for (int i=0;i<ctx.blockOfarguments().size();i++) {
             jsxElementIn.getBlockOfarguments().add((BlockOfarguments) visitBlockOfarguments(ctx.blockOfarguments(i)));
@@ -862,9 +904,15 @@ BaseVisitor extends ReactParserBaseVisitor {
         blockIn.setNode_type("BlockIn");
         blockIn.setCount_child(ctx.getChildCount());
         blockIn.setLine_num(String.valueOf(ctx.getStart().getLine()));
+        if (ctx.OpenBraceIn ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         for (int i =0;i<ctx.jsxArguments().size();i++) {
             blockIn.getJsxArgumentsList().add((JsxArguments) visitJsxArguments(ctx.jsxArguments(i)));
             blockIn.getChild().add(blockIn.getJsxArgumentsList().get(i));
+        }
+        if (ctx.CloseBraceIn ()!=null){
+            scopes.pop ();
         }
 //        StRow row = new StRow();
 //        row.setType(blockIn.getNode_type());
@@ -948,9 +996,15 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxArrowFunction.getChild ().add (jsxArrowFunction.getJsxArgument ());
         }
 
+        if (ctx.OpenBraceIn ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         for ( int i =0 ;i<ctx.jsxExpression ().size ();i++){
             jsxArrowFunction.getJsxExpressionList ().add ((JsxExpression) visit (ctx.jsxExpression ().get (i)));
             jsxArrowFunction.getChild ().add (jsxArrowFunction.getJsxExpressionList ().get (i));
+        }
+        if (ctx.CloseBraceIn ()!=null){
+            scopes.pop ();
         }
 
         return jsxArrowFunction;
@@ -1002,6 +1056,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         StRow row = new StRow();
         row.setType(jsxSimpleCallfunction.getNode_type());
         row.setValue(jsxSimpleCallfunction.getNode_type());
+        row.setScope (scopes);
         symbolTable.getRows().add(row);
         return jsxSimpleCallfunction;
     }
@@ -1032,6 +1087,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         StRow row = new StRow();
         row.setType(jsxArgument.getNode_type());
         row.setValue(jsxArgument.getNode_name ());
+        row.setScope (scopes);
         symbolTable.getRows().add(row);
         return jsxArgument;
     }
@@ -1147,9 +1203,15 @@ BaseVisitor extends ReactParserBaseVisitor {
         block.setNode_type ("Block");
         block.setCount_child(ctx.getChildCount());
         block.setLine_num(String.valueOf(ctx.getStart().getLine()));
+        if (ctx.OpenBrace ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         for ( int i =0 ;i<ctx.statment ().size ();i++){
             block.getStatementList ().add ((Statement) visitStatment (ctx.statment ().get (i)));
             block.getChild ().add (block.getStatementList ().get (i));
+        }
+        if (ctx.CloseBrace ()!=null){
+            scopes.pop ();
         }
         return block;
     }
@@ -1278,9 +1340,15 @@ BaseVisitor extends ReactParserBaseVisitor {
         blockOfarguments.setNode_type ("BlockOfarguments");
         blockOfarguments.setCount_child(ctx.getChildCount());
         blockOfarguments.setLine_num(String.valueOf(ctx.getStart().getLine()));
+        if (ctx.OpenBrace ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         if (ctx.arguments () !=null){
             blockOfarguments.setArguments ((Arguments) visitArguments (ctx.arguments ()));
             blockOfarguments.getChild ().add (blockOfarguments.getArguments ());
+        }
+        if (ctx.CloseBrace ()!=null){
+            scopes.pop ();
         }
         return blockOfarguments;
     }
@@ -1298,10 +1366,11 @@ BaseVisitor extends ReactParserBaseVisitor {
         if (ctx.id () !=null){
             variableDeclaration.setId ((Id) visitId (ctx.id ()));
             variableDeclaration.getChild ().add (variableDeclaration.getId ());
-            StRow row = new StRow();
-            row.setType(variableDeclaration.getNode_type());
-            row.setValue(variableDeclaration.getId ().getId ());
-            symbolTable.getRows().add(row);
+//            StRow row = new StRow();
+//            row.setType(variableDeclaration.getNode_type());
+//            row.setValue(variableDeclaration.getId ().getId ());
+//            row.setScope (scopes);
+//            symbolTable.getRows().add(row);
         }
 
         if (ctx.expression () !=null){
@@ -1363,9 +1432,15 @@ BaseVisitor extends ReactParserBaseVisitor {
             arrowFunction.setExperssion ((Expression) visit (ctx.expression ()));
             arrowFunction.getChild ().add (arrowFunction.getExperssion ());
         }
+        if (ctx.openBrace ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         for ( int i =0 ;i<ctx.statment ().size ();i++){
             arrowFunction.getStatementList ().add ((Statement) visitStatment (ctx.statment ().get (i)));
             arrowFunction.getChild ().add (arrowFunction.getStatementList ().get (i));
+        }
+        if (ctx.closeBrace ()!=null){
+            scopes.pop ();
         }
         if (ctx.returnstatment () !=null){
             arrowFunction.setReturnstatment ((Returnstatment) visitReturnstatment (ctx.returnstatment ()));
@@ -1416,6 +1491,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         StRow row = new StRow();
         row.setType(SimpleCallfunction.getNode_type());
         row.setValue(SimpleCallfunction.getNode_name ());
+        row.setScope (scopes);
         symbolTable.getRows().add(row);
         return SimpleCallfunction;
     }
@@ -1859,9 +1935,15 @@ BaseVisitor extends ReactParserBaseVisitor {
         map.setNode_type("map");
         map.setCount_child(ctx.getChildCount());
         map.setLine_num(String.valueOf(ctx.getStart().getLine()));
+        if (ctx.OpenBrace ()!=null){
+            scopes.add (new Scope (scopes.size ()));
+        }
         for(int i=0 ; i<ctx.mapElementList().size(); i++){
             map.getMapElementLists().add((MapElementList) ( visitMapElementList(ctx.mapElementList(i))));
             map.getChild ().add (map.getMapElementLists ().get (i));
+        }
+        if (ctx.CloseBrace ()!=null){
+            scopes.pop ();
         }
         return map;
     }
@@ -1907,6 +1989,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
         StRow row = expression.getStRow ();
         row.setType(mapElement.getIdentifier ().getId ());
+        row.setScope (scopes);
         symbolTable.getRows().add(row);
         return mapElement;
     }
@@ -2039,7 +2122,9 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
         StRow row = new StRow();
         row.setType(id.getNode_type());
+        //row.setName ();
         row.setValue(id.getNode_name ());
+        row.setScope (scopes);
         symbolTable.getRows().add(row);
         return id;
 
