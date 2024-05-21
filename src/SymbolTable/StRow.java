@@ -27,7 +27,7 @@ public class StRow {
         return scope;
     }
 
-    public void setScope(Stack<Scope> scopes) {
+    public void setScope(CustomStack scopes) {
         this.scope.setLevel (scopes.size ());
         if(scopes.empty ()){
             this.scope.setId (0);
@@ -35,6 +35,7 @@ public class StRow {
         else {
             this.scope.setId (scopes.peek ().getId ());
         }
+        this.scope.setgId (scopes.gId);
     }
 
     public String getName() {
