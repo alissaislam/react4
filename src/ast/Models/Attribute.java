@@ -3,7 +3,8 @@ package ast.Models;
 public class Attribute extends  Node {
     Id id;
     BlockIn blockIn;
-    Stringg stringg;
+    Stringg stringg ;
+
 
     public Id getId() {
         return id;
