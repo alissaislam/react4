@@ -1625,7 +1625,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         expression.setNode_name ("Expression");
         expression.setCount_child(ctx.getChildCount());
         expression.setLine_num(String.valueOf(ctx.getStart().getLine()));
-        StRow row = new StRow();
+
 
         for(int i=0;i<ctx.expression().size();i++){
             expression.getExpressionList().add((Expression) visitExpression(ctx.expression(i)));
@@ -1793,7 +1793,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             number.setLine_num(String.valueOf(ctx.getStart().getLine()));
             number.setValue (Integer.parseInt (ctx.NUMBER ().toString ()));
             data.setNumber (number);
-            row.setName (ctx.NUMBER ().getText ());
+            row.setValue (ctx.NUMBER ().getText ());
             data.setStRow (row);
         }
         if (ctx.NUMBERModeCall () != null) {
@@ -1803,6 +1803,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             number.setCount_child(ctx.getChildCount());
             number.setLine_num(String.valueOf(ctx.getStart().getLine()));
             number.setValue (Integer.parseInt (ctx.NUMBERModeCall ().toString ()));
+            row.setValue (ctx.NUMBERModeCall ().getText ());
             data.setNumber (number);
         }
         if (ctx.String () != null) {
@@ -1813,7 +1814,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setLine_num(String.valueOf(ctx.getStart().getLine()));
             stringg.setString (ctx.String ().toString ());
             data.setStringg (stringg);
-            row.setName (ctx.String ().getText ());
+            row.setValue (ctx.String ().getText ());
             data.setStRow (row);
 
         }
@@ -1825,7 +1826,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setLine_num(String.valueOf(ctx.getStart().getLine()));
             stringg.setString (ctx.StringModeCall ().toString());
             data.setStringg (stringg);
-            row.setName (ctx.StringModeCall ().getText ());
+            row.setValue (ctx.StringModeCall ().getText ());
             data.setStRow (row);
         }
         if (ctx.id () != null) {
@@ -1842,6 +1843,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             bool.setLine_num(String.valueOf(ctx.getStart().getLine()));
             bool.setBool (ctx.BooleanLiteral ().toString ());
             data.setBool (bool);
+            row.setValue (ctx.BooleanLiteral ().getText ());
 
         }
         if (ctx.BooleanLiteralModeCall () != null) {
@@ -1852,6 +1854,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             bool.setLine_num(String.valueOf(ctx.getStart().getLine()));
             bool.setBool (ctx.BooleanLiteralModeCall ().toString ());
             data.setBool (bool);
+            row.setValue (ctx.BooleanLiteralModeCall ().getText ());
         }
 
         return data;
@@ -1969,14 +1972,28 @@ BaseVisitor extends ReactParserBaseVisitor {
     public MapElement visitMapElement(ReactParser.MapElementContext ctx) {
         MapElement mapElement = new MapElement();
         Expression expression=null;
+
         mapElement.setNode_type("mapElement");
         mapElement.setCount_child(ctx.getChildCount());
         mapElement.setLine_num(String.valueOf(ctx.getStart().getLine()));
+        if( ctx.expression() != null){
+            expression =(Expression) visitExpression (ctx.expression());
+            mapElement.setExpressions(expression);
+            mapElement.getChild ().add (mapElement.getExpressions ());
+        }
+
+        StRow row ;
+        if (expression!=null)
+            row = expression.getStRow ();
+        else
+            row = new StRow ();
+
         if(ctx.IDENTIFIER() != null){
             Id id =new Id ();
             id.setId (ctx.IDENTIFIER().getText ());
             mapElement.setIdentifier(id);
             mapElement.getChild ().add (mapElement.getIdentifier ());
+            row.setName (mapElement.getIdentifier ().getId ());
         }
         if(ctx.callfunction() != null){
             mapElement.setCallFunction((CallFunction) visitCallfunction(ctx.callfunction()));
@@ -1986,13 +2003,9 @@ BaseVisitor extends ReactParserBaseVisitor {
             mapElement.setCallIdentifier((CallIdentifier) visitCallIdentifier(ctx.callIdentifier()));
             mapElement.getChild ().add (mapElement.getCallIdentifier ());
         }
-        else if( ctx.expression() != null){
-           expression =(Expression) visitExpression (ctx.expression());
-            mapElement.setExpressions(expression);
-            mapElement.getChild ().add (mapElement.getExpressions ());
-        }
-        StRow row = expression.getStRow ();
-        row.setType(mapElement.getIdentifier ().getId ());
+
+        row.setType(mapElement.getNode_type ());
+        row.setAssigned (true);
         row.setScope (scopes);
         symbolTable.getRows().add(row);
         return mapElement;
