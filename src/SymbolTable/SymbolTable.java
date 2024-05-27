@@ -15,16 +15,16 @@ public class SymbolTable {
     }
 
     public void print() {
-        System.out.println("\t\t\t\t\tType\t\t\t\t\t\t\t\t\tname\t\t\t\t\t\t\t\t\tValue\t\t\t\t\t\t\t\t\tscope level\t\t\t\t\t\t\t\t\tscope Id\t\t\t\t\t\t\t\t\tscope GId");
-        System.out.println("├────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼──────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┤");
+        System.out.println("\t\t\t\t\tType\t\t\t\t\t\t\t\t\tKind\t\t\t\t\t\t\t\t\tName\t\t\t\t\t\t\t\t\tAssigned\t\t\t\t\t\t\t\t\tValue\t\t\t\t\t\t\t\t\tscope level\t\t\t\t\t\t\t\t\tscope Id\t\t\t\t\t\t\t\tscope Group Id");
+        System.out.println("├────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼──────────────────────────────────────────┼──────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┤");
 
         for (StRow row : rows) {
             if (row!= null) {
-                System.out.printf("│%-40s│ %-40s│ %-40s│ %-40s │%-40s │%-40s │%n", centerText(row.getType(), 40), centerText(row.getName (), 40), centerText(row.getValue(), 40), centerText(String.valueOf (row.getScope ().getLevel ()), 40), centerText(String.valueOf (row.getScope ().getId ()), 40) ,centerText(String.valueOf (row.getScope ().getgId ()), 40));
+                System.out.printf("│%-40s│ %-40s│ %-40s│ %-40s │ %-40s │%-40s │%-40s │%-40s │%n", centerText(row.getType(), 40), centerText(row.getKind (), 40), centerText(row.getName (), 40),centerText(String.valueOf (row.isAssigned ()), 40),centerText(row.getValue (), 40), centerText(String.valueOf (row.getScope ().getLevel ()), 40), centerText(String.valueOf (row.getScope ().getId ()), 40) ,centerText(String.valueOf (row.getScope ().getgId ()), 40));
             }
         }
 
-        System.out.println("├────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼──────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┤");
+        System.out.println("├────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼──────────────────────────────────────────┼──────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┤");
 
     }
 

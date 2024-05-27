@@ -51,13 +51,14 @@ options{tokenVocab=ReactLexer;}
     ifShort: callIdentifier (operation expression)? (QuestionMark|QuestionMarkModeCall) (openParen statment closeParen|openParen jsxElement closeParen | statment | jsxElement ) (Colon|ColonModeCall) (openParen statment closeParen|openParen jsxElement closeParen | statment | jsxElement );
 
     jsxElement:jsxElementNonSelfClosing|jsxElementSelfClosing;
-    jsxElementNonSelfClosing: (JSX_TAG|JSX_TAGModeCall) (id ( AssignIn (blockIn|StringIn))?)* MoreThanIn ( OpenBraceInIn (ifShort|Id((Dot|DotModeCall) Id)*?) CloseBraceCall |LETTERR| jsxElementIn |blockOfarguments)*? CLOSE_TAGIn  (MoreThan|MoreThanModeCall) ;
-    jsxElementSelfClosing:jsx_tag (id ( AssignIn (blockIn|StringIn))?)* Self_CLOSE_TAG;
+    jsxElementNonSelfClosing: (JSX_TAG|JSX_TAGModeCall) (attribute)* MoreThanIn ( OpenBraceInIn (ifShort|Id((Dot|DotModeCall) Id)*?) CloseBraceCall |LETTERR| jsxElementIn |blockOfarguments)*? CLOSE_TAGIn  (MoreThan|MoreThanModeCall) ;
+    jsxElementSelfClosing:jsx_tag (attribute)* Self_CLOSE_TAG;
 
     jsxElementIn:  (
-    (JSX_TAGIn|JSX_TAGInIn) (id ( AssignIn (blockIn|StringIn))?)* MoreThanIn (  OpenBraceInIn Id((Dot|DotModeCall) Id (PlussPlussModeCall|MinusMinusModeCall)?)*?CloseBraceCall  |jsxElementIn | LETTERR |blockOfarguments )*?  CLOSE_TAGIn  MoreThanInIn |jsxElementSelfClosing
+    (JSX_TAGIn|JSX_TAGInIn) (attribute)* MoreThanIn (  OpenBraceInIn Id((Dot|DotModeCall) Id (PlussPlussModeCall|MinusMinusModeCall)?)*?CloseBraceCall  |jsxElementIn | LETTERR |blockOfarguments )*?  CLOSE_TAGIn  MoreThanInIn |jsxElementSelfClosing
     );
     blockIn:OpenBraceIn (jsxArguments )* CloseBraceIn;
+    attribute:id ( AssignIn (blockIn|StringIn));
     jsxArguments:jsxParameters(CommaIn jsxParameters)*;
     jsxParameters:
       jsxArrowFunction
@@ -104,7 +105,7 @@ options{tokenVocab=ReactLexer;}
     arguments : parameters((Comma|CommaModeCall) parameters)*;
 
     blockOfarguments :OpenBrace arguments CloseBrace;
-    variableDeclaration : kind? (id) (( Assign (expression | callfunction | callIdentifier | arrowFunction) )? )  ;
+      variableDeclaration : kind? (id) (( Assign (expression | callfunction | callIdentifier | arrowFunction) )? )  ;
     variableDeclarationList : variableDeclaration ( Comma variableDeclaration )* ;
 
     arrowFunction: Async?(openParen arguments? closeParen | id )(ARROW|ARROWModeCall)

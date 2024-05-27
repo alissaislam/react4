@@ -4,7 +4,8 @@ import SymbolTable.Scope;
 import java.util.Stack;
 
 public class StRow {
-    String type,name,value;
+    String type,name,value, kind = "*";
+    boolean Assigned =false;
     Scope scope = new Scope ();
 
     public String getType() {
@@ -44,5 +45,21 @@ public class StRow {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public boolean isAssigned() {
+        return Assigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        Assigned = assigned;
     }
 }

@@ -5,9 +5,8 @@ import java.util.List;
 
 public class JsxElementIn extends Node{
     String jsxTag;
-    List<Id> ids = new ArrayList<>();
-    List<String> stringsIns = new ArrayList<>();
-    List<BlockIn> blocks = new ArrayList<>();
+    List<Attribute> attributes = new ArrayList<>();
+
     List<JsxElementIn> jsxElementIns= new ArrayList<>();
     List<String> letterrs = new ArrayList<>();
     List<BlockOfarguments> blockOfarguments = new ArrayList<>();
@@ -21,28 +20,12 @@ public class JsxElementIn extends Node{
         this.jsxTag = jsxTag;
     }
 
-    public List<Id> getIds() {
-        return ids;
+    public List<Attribute> getAttributes() {
+        return attributes;
     }
 
-    public void setIds(List<Id> ids) {
-        this.ids = ids;
-    }
-
-    public List<String> getStringsIns() {
-        return stringsIns;
-    }
-
-    public void setStringsIns(List<String> stringsIns) {
-        this.stringsIns = stringsIns;
-    }
-
-    public List<BlockIn> getBlocks() {
-        return blocks;
-    }
-
-    public void setBlocks(List<BlockIn> blocks) {
-        this.blocks = blocks;
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
     public List<JsxElementIn> getJsxElementIns() {

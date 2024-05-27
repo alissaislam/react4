@@ -9,14 +9,12 @@ import SymbolTable.CustomStack;
 import antlr.ReactParserBaseVisitor;
 import ast.Models.*;
 import ast.Models.Number;
-import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 
 public class
@@ -57,7 +55,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         //start.setChild (start.getStatement_list ());
 //        StRow stRow = new StRow ();
 //        stRow.setType(start.getNode_type());
-//        stRow.setValue(start.getNode_name());
+//        strow.setName(start.getNode_name());
 //        symbolTable.getRows().add(stRow);
         return start;
     }
@@ -77,7 +75,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow stRow = new StRow();
 //        stRow.setType(statement.getNode_type());
-//        stRow.setValue(statement.getNode_name());
+//        strow.setName(statement.getNode_name());
 //        symbolTable.getRows().add(stRow);
         return statement;
     }
@@ -319,7 +317,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow stRow = new StRow();
 //        stRow.setType(statementElement.getNode_type());
-//        stRow.setValue(statementElement.getNode_type());
+//        strow.setName(statementElement.getNode_type());
         return statementElement;
     }
 
@@ -351,7 +349,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow stRow = new StRow();
 //        stRow.setType(jsxParameters.getNode_type());
-//        stRow.setValue(jsxParameters.getNode_type());
+//        strow.setName(jsxParameters.getNode_type());
         return jsxParameters;
     }
 
@@ -383,7 +381,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(ifElement.getNode_type());
-//        row.setValue(ifElement.getNode_type());
+//        row.setName(ifElement.getNode_type());
 //        symbolTable.getRows().add(row);
         return ifElement;
     }
@@ -408,7 +406,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(forElement.getNode_type());
-//        row.setValue(forElement.getNode_type());
+//        row.setName(forElement.getNode_type());
 //        symbolTable.getRows().add(row);
         return forElement;
     }
@@ -450,7 +448,7 @@ BaseVisitor extends ReactParserBaseVisitor {
 
         StRow row = new StRow();
         row.setType(function.getNode_type());
-        row.setValue(function.getNode_name());
+        row.setName(function.getNode_name());
         row.setScope (scopes);
         symbolTable.getRows().add(row);
         return function;
@@ -480,7 +478,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(comment.getNode_type());
-//        row.setValue(comment.getNode_name());
+//        row.setName(comment.getNode_name());
 //        symbolTable.getRows().add(row);
         return comment;
 
@@ -506,7 +504,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(whileElement.getNode_type());
-//        row.setValue(whileElement.getNode_type());
+//        row.setName(whileElement.getNode_type());
 //        symbolTable.getRows().add(row);
         return whileElement;
     }
@@ -531,7 +529,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(doWhile.getNode_type());
-//        row.setValue(doWhile.getNode_type());
+//        row.setName(doWhile.getNode_type());
 //        symbolTable.getRows().add(row);
         return doWhile;
     }
@@ -554,7 +552,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(callFunction.getNode_type());
-//        row.setValue(callFunction.getNode_type());
+//        row.setName(callFunction.getNode_type());
 //        symbolTable.getRows().add(row);
         return callFunction;
     }
@@ -585,7 +583,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(switchElement.getNode_type());
-//        row.setValue(switchElement.getNode_type());
+//        row.setName(switchElement.getNode_type());
 //        symbolTable.getRows().add(row);
         return switchElement;
     }
@@ -606,7 +604,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(tryCatch.getNode_type());
-//        row.setValue(tryCatch.getNode_type());
+//        row.setName(tryCatch.getNode_type());
 //        symbolTable.getRows().add(row);
         return tryCatch;
     }
@@ -643,7 +641,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(importElement.getNode_type());
-//        row.setValue(importElement.getNode_type());
+//        row.setName(importElement.getNode_type());
 //        symbolTable.getRows().add(row);
         return importElement;
     }
@@ -680,7 +678,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(ifShort.getNode_type());
-//        row.setValue(ifShort.getNode_type());
+//        row.setName(ifShort.getNode_type());
 //        symbolTable.getRows().add(row);
         return ifShort;
     }
@@ -701,7 +699,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(jsxElement.getNode_type());
-//        row.setValue(jsxElement.getNode_type());
+//        row.setName(jsxElement.getNode_type());
 //        symbolTable.getRows().add(row);
         return jsxElement;
     }
@@ -712,8 +710,6 @@ BaseVisitor extends ReactParserBaseVisitor {
         jsxElementNonSelfClosing.setNode_type("JsxElementNonSelfClosing");
         jsxElementNonSelfClosing.setCount_child(ctx.getChildCount());
         jsxElementNonSelfClosing.setLine_num(String.valueOf(ctx.getStart().getLine()));
-       List<StRow> stRowList=new ArrayList<> ();
-
 
         if(ctx.JSX_TAG()!=null){
             jsxElementNonSelfClosing.setJsxTag((String)ctx.JSX_TAG().toString());
@@ -729,27 +725,17 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setString(ctx.JSX_TAGModeCall().toString());
             jsxElementNonSelfClosing.getChild().add(stringg);
         }
-        for (int i=0;i<ctx.id().size();i++) {
-            jsxElementNonSelfClosing.getIds().add((Id) visitId(ctx.id(i)));
-            jsxElementNonSelfClosing.getChild().add(jsxElementNonSelfClosing.getIds().get(i));
-            StRow row = new StRow();
-            row.setType (jsxElementNonSelfClosing.getIds().get(i).getId ());
-            row.setScope (scopes);
-            stRowList.add (row);
+
+        for (int i=0;i<ctx.attribute ().size();i++) {
+            jsxElementNonSelfClosing.getAttributes().add(visitAttribute (ctx.attribute(i)));
+            jsxElementNonSelfClosing.getChild().add(jsxElementNonSelfClosing.getAttributes().get(i));
+
         }
-        for (int i=0;i<ctx.StringIn().size();i++) {
-            jsxElementNonSelfClosing.getStrings().add(ctx.StringIn(i).toString());
-            Stringg stringg = new Stringg();
-            stringg.setNode_type("StringIn");
-            stringg.setString(ctx.StringIn().toString());
-            jsxElementNonSelfClosing.getChild().add(stringg);
-            for (StRow row :stRowList){
-                row.setValue (ctx.StringIn().toString());
-            }
-        }
+
         if (ctx.OpenBraceInIn ()!=null){
             scopes.add (new Scope (scopes.size (),scopes.getgId ()));
         }
+
         for (int i=0;i<ctx.ifShort().size();i++) {
             jsxElementNonSelfClosing.getIfShorts().add((IfShort) visitIfShort(ctx.ifShort(i)));
             jsxElementNonSelfClosing.getChild().add(jsxElementNonSelfClosing.getIfShorts().get(i));
@@ -765,7 +751,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElementNonSelfClosing.getChild().add(stringg);
             StRow row = new StRow();
             row.setType ("Text");
-            row.setValue (ctx.LETTERR().get(0).getText ());
+            row.setName (ctx.LETTERR().get(0).getText ());
             row.setScope (scopes);
             symbolTable.getRows().add(row);
         }
@@ -779,12 +765,42 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(jsxElementNonSelfClosing.getNode_type());
-//        row.setValue(jsxElementNonSelfClosing.getNode_type());
+//        row.setName(jsxElementNonSelfClosing.getNode_type());
 //        symbolTable.getRows().add(row);
-        for (StRow row :stRowList){
-            symbolTable.getRows().add(row);
-        }
+
         return jsxElementNonSelfClosing;
+    }
+
+    @Override
+    public Attribute visitAttribute(ReactParser.AttributeContext ctx) {
+        Attribute attribute = new Attribute ();
+        attribute.setNode_type("Attribute");
+        attribute.setCount_child(ctx.getChildCount());
+        attribute.setLine_num(String.valueOf(ctx.getStart().getLine()));
+        StRow row = new StRow();
+        row.setType(attribute.getNode_type());
+        row.setScope (scopes);
+        if (ctx.id()!= null) {
+            attribute.setId (visitId(ctx.id()));
+            attribute.getChild ().add (attribute.getId ());
+            row.setName (attribute.getId ().getId ());
+        }
+        if (ctx.blockIn ()!= null) {
+            attribute.setBlockIn (visitBlockIn (ctx.blockIn ()));
+            attribute.getChild ().add (attribute.getBlockIn ());
+            row.setValue ("Block");
+        }
+        if (ctx.StringIn() !=null) {
+            Stringg stringg = new Stringg();
+            stringg.setNode_type("StringIn");
+            stringg.setString(ctx.StringIn().toString());
+            attribute.setStringg(stringg);
+            attribute.getChild().add(stringg);
+            row.setValue (attribute.getStringg ().getString ());
+        }
+        row.setAssigned (true);
+        symbolTable.getRows().add(row);
+        return attribute;
     }
 
     @Override
@@ -793,7 +809,6 @@ BaseVisitor extends ReactParserBaseVisitor {
         jsxElementSelfClosing.setNode_type("JsxElementSelfClosing");
         jsxElementSelfClosing.setCount_child(ctx.getChildCount());
         jsxElementSelfClosing.setLine_num(String.valueOf(ctx.getStart().getLine()));
-        List<StRow> stRowList = new ArrayList<> ();
         if (ctx.jsx_tag()!=null) {
             jsxElementSelfClosing.setJsxTag(ctx.jsx_tag().toString());
             Stringg stringg = new Stringg();
@@ -801,35 +816,14 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setString(ctx.jsx_tag().toString());
             jsxElementSelfClosing.getChild().add(stringg);
         }
-        for (int i=0;i<ctx.id().size();i++) {
-            jsxElementSelfClosing.getIds().add((Id) visitId(ctx.id(i)));
-            jsxElementSelfClosing.getChild().add(jsxElementSelfClosing.getIds().get(i));
-            StRow row = new StRow();
-            row.setType (jsxElementSelfClosing.getIds().get(i).getId ());
-            row.setScope (scopes);
-            stRowList.add (row);
-        }
-        for (int i=0;i<ctx.blockIn().size();i++) {
-            jsxElementSelfClosing.getBlocks().add((BlockIn) visitBlockIn(ctx.blockIn(i)));
-            jsxElementSelfClosing.getChild().add(jsxElementSelfClosing.getBlocks().get(i));
-        }
-        for (int i=0;i<ctx.StringIn().size();i++) {
-            jsxElementSelfClosing.getStringsIns().add(ctx.StringIn(i).toString());
-            Stringg stringg = new Stringg();
-            stringg.setNode_type("StringIn");
-            stringg.setString(ctx.StringIn().toString());
-            jsxElementSelfClosing.getChild().add(stringg);
-            for (StRow row :stRowList){
-                row.setValue (ctx.StringIn().toString());
-            }
+        for (int i=0;i<ctx.attribute ().size();i++) {
+            jsxElementSelfClosing.getAttributes().add(visitAttribute (ctx.attribute(i)));
+            jsxElementSelfClosing.getChild().add(jsxElementSelfClosing.getAttributes().get(i));
         }
 //        StRow row = new StRow();
 //        row.setType(jsxElementSelfClosing.getNode_type());
-//        row.setValue(jsxElementSelfClosing.getNode_type());
+//        row.setName(jsxElementSelfClosing.getNode_type());
 //        symbolTable.getRows().add(row);
-        for (StRow row :stRowList){
-            symbolTable.getRows().add(row);
-        }
         return jsxElementSelfClosing;
 
     }
@@ -854,21 +848,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setString(ctx.JSX_TAGInIn().toString());
             jsxElementIn.getChild().add(stringg);
         }
-        for (int i=0;i<ctx.id().size();i++) {
-            jsxElementIn.getIds().add((Id) visitId(ctx.id(i)));
-            jsxElementIn.getChild().add(jsxElementIn.getIds().get(i));
-        }
-        for (int i=0;i<ctx.blockIn().size();i++) {
-            jsxElementIn.getBlocks().add((BlockIn) visitBlockIn(ctx.blockIn(i)));
-            jsxElementIn.getChild().add(jsxElementIn.getBlocks().get(i));
-        }
-        for (int i=0;i<ctx.StringIn().size();i++) {
-            jsxElementIn.getStringsIns().add(ctx.StringIn(i).toString());
-            Stringg stringg = new Stringg();
-            stringg.setNode_type("StringIn");
-            stringg.setString(ctx.StringIn().get(i).toString());
-            jsxElementIn.getChild().add(stringg);
-        }
+
         if (ctx.OpenBraceInIn ()!=null){
             scopes.add (new Scope (scopes.size (),scopes.getgId ()));
         }
@@ -893,7 +873,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(jsxElementIn.getNode_type());
-//        row.setValue(jsxElementIn.getNode_type());
+//        row.setName(jsxElementIn.getNode_type());
 //        symbolTable.getRows().add(row);
         return jsxElementIn;
 
@@ -917,7 +897,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(blockIn.getNode_type());
-//        row.setValue(blockIn.getNode_type());
+//        row.setName(blockIn.getNode_type());
 //        symbolTable.getRows().add(row);
         return blockIn;
 
@@ -935,7 +915,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
 //        StRow row = new StRow();
 //        row.setType(jsxArguments.getNode_type());
-//        row.setValue(jsxArguments.getNode_type());
+//        row.setName(jsxArguments.getNode_type());
 //        symbolTable.getRows().add(row);
         return jsxArguments;
     }
@@ -1056,7 +1036,7 @@ BaseVisitor extends ReactParserBaseVisitor {
 
         StRow row = new StRow();
         row.setType(jsxSimpleCallfunction.getNode_type());
-        row.setValue(jsxSimpleCallfunction.getNode_type());
+        row.setName(jsxSimpleCallfunction.getNode_type());
         row.setScope (scopes);
         symbolTable.getRows().add(row);
         return jsxSimpleCallfunction;
@@ -1087,7 +1067,7 @@ BaseVisitor extends ReactParserBaseVisitor {
 
         StRow row = new StRow();
         row.setType(jsxArgument.getNode_type());
-        row.setValue(jsxArgument.getNode_name ());
+        row.setName(jsxArgument.getNode_name ());
         row.setScope (scopes);
         symbolTable.getRows().add(row);
         return jsxArgument;
@@ -1356,6 +1336,7 @@ BaseVisitor extends ReactParserBaseVisitor {
 
     @Override
     public Object visitVariableDeclaration(ReactParser.VariableDeclarationContext ctx) {
+        StRow row = new StRow();
         VariableDeclaration variableDeclaration = new VariableDeclaration ();
         variableDeclaration.setNode_type ("VariableDeclaration");
         variableDeclaration.setCount_child(ctx.getChildCount());
@@ -1365,32 +1346,54 @@ BaseVisitor extends ReactParserBaseVisitor {
             variableDeclaration.getChild ().add (variableDeclaration.getKind ());
         }
         if (ctx.id () !=null){
-            variableDeclaration.setId ((Id) visitId (ctx.id ()));
+            Id id = new Id();
+            if (ctx.id ().IDENTIFIER () != null) {
+                id.setId(ctx.id ().IDENTIFIER ().getText());
+                id.setNode_name(ctx.id ().IDENTIFIER ().getText());
+            }
+            else if (ctx.id ().Id() != null) {
+                id.setId(ctx.id ().Id().getText());
+                id.setNode_name(ctx.id ().Id().getText());
+            }
+            else if (ctx.id ().IDENTIFIERIn () != null) {
+                id.setId(ctx.id ().IDENTIFIERIn ().getText());
+                id.setNode_name(ctx.id ().IDENTIFIERIn ().getText());
+            }
+            variableDeclaration.setId (id);
             variableDeclaration.getChild ().add (variableDeclaration.getId ());
-//            StRow row = new StRow();
-//            row.setType(variableDeclaration.getNode_type());
-//            row.setValue(variableDeclaration.getId ().getId ());
-//            row.setScope (scopes);
-//            symbolTable.getRows().add(row);
+
         }
 
         if (ctx.expression () !=null){
             variableDeclaration.setExpression ((Expression) visit (ctx.expression ()));
             variableDeclaration.getChild ().add (variableDeclaration.getExpression ());
+            row.setValue ("Expression");
         }
         if (ctx.callfunction () !=null){
             variableDeclaration.setCallFunction ((CallFunction) visitCallfunction (ctx.callfunction ()));
             variableDeclaration.getChild ().add (variableDeclaration.getCallFunction ());
+            row.setValue ("Call Function");
         }
         if (ctx.callIdentifier () !=null){
             variableDeclaration.setCallIdentifier ((CallIdentifier) visitCallIdentifier (ctx.callIdentifier ()));
             variableDeclaration.getChild ().add (variableDeclaration.getCallIdentifier ());
+            row.setValue ("Call Identifier");
         }
         if (ctx.arrowFunction () !=null){
             variableDeclaration.setArrowFunction ((ArrowFunction) visitArrowFunction (ctx.arrowFunction ()));
             variableDeclaration.getChild ().add (variableDeclaration.getArrowFunction ());
+            row.setValue ("Arrow Function");
         }
 
+
+        row.setType(variableDeclaration.getNode_type());
+        if(ctx.kind ()!=null)
+        row.setKind (String.valueOf (variableDeclaration.getKind ().getType ()));
+        row.setName (variableDeclaration.getId ().getId ());
+        if (ctx.Assign ()!= null)
+            row.setAssigned (true);
+        row.setScope (scopes);
+        symbolTable.getRows().add(row);
         return variableDeclaration;
     }
 
@@ -1491,7 +1494,7 @@ BaseVisitor extends ReactParserBaseVisitor {
 
         StRow row = new StRow();
         row.setType(SimpleCallfunction.getNode_type());
-        row.setValue(SimpleCallfunction.getNode_name ());
+        row.setName(SimpleCallfunction.getNode_name ());
         row.setScope (scopes);
         symbolTable.getRows().add(row);
         return SimpleCallfunction;
@@ -1790,7 +1793,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             number.setLine_num(String.valueOf(ctx.getStart().getLine()));
             number.setValue (Integer.parseInt (ctx.NUMBER ().toString ()));
             data.setNumber (number);
-            row.setValue (ctx.NUMBER ().getText ());
+            row.setName (ctx.NUMBER ().getText ());
             data.setStRow (row);
         }
         if (ctx.NUMBERModeCall () != null) {
@@ -1810,7 +1813,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setLine_num(String.valueOf(ctx.getStart().getLine()));
             stringg.setString (ctx.String ().toString ());
             data.setStringg (stringg);
-            row.setValue (ctx.String ().getText ());
+            row.setName (ctx.String ().getText ());
             data.setStRow (row);
 
         }
@@ -1822,7 +1825,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setLine_num(String.valueOf(ctx.getStart().getLine()));
             stringg.setString (ctx.StringModeCall ().toString());
             data.setStringg (stringg);
-            row.setValue (ctx.StringModeCall ().getText ());
+            row.setName (ctx.StringModeCall ().getText ());
             data.setStRow (row);
         }
         if (ctx.id () != null) {
@@ -2121,12 +2124,11 @@ BaseVisitor extends ReactParserBaseVisitor {
             id.setId(ctx.IDENTIFIERIn ().getText());
             id.setNode_name(ctx.IDENTIFIERIn ().getText());
         }
-        StRow row = new StRow();
-        row.setType(id.getNode_type());
-        //row.setName ();
-        row.setValue(id.getNode_name ());
-        row.setScope (scopes);
-        symbolTable.getRows().add(row);
+//        StRow row = new StRow();
+//        row.setType(id.getNode_type());
+//        row.setName (id.getNode_name ());
+//        row.setScope (scopes);
+//        symbolTable.getRows().add(row);
         return id;
 
     }

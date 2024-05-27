@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
 
         CharStream cs=null;
-        String source  = "src/test/test1.txt";
+        String source  = "src/test/test.txt";
         try{
             cs = fromFileName (source);
         }catch (Exception e){

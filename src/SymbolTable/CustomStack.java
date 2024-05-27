@@ -8,7 +8,7 @@ public class CustomStack  {
     int gId ;
 
     public CustomStack() {
-        this.gId = -1;
+        this.gId = 0;
     }
 
     public int getgId() {

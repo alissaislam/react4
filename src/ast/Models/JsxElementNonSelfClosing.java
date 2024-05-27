@@ -5,9 +5,8 @@ import java.util.List;
 
 public class JsxElementNonSelfClosing extends Node {
     String jsxTag;
-    List<Id> ids = new ArrayList<>();
-    List<BlockIn> blocks= new ArrayList<>();
-    List<String> strings = new ArrayList<>();
+    List<Attribute>  attributes = new ArrayList<>();
+
     List<IfShort> ifShorts = new ArrayList<>();
     List<String> letterrs = new ArrayList<>();
     List<JsxElementIn> jsxElementIns = new ArrayList<>();
@@ -21,28 +20,12 @@ public class JsxElementNonSelfClosing extends Node {
         this.jsxTag = jsxTag;
     }
 
-    public List<Id> getIds() {
-        return ids;
+    public List<Attribute> getAttributes() {
+        return attributes;
     }
 
-    public void setIds(List<Id> ids) {
-        this.ids = ids;
-    }
-
-    public List<BlockIn> getBlocks() {
-        return blocks;
-    }
-
-    public void setBlocks(List<BlockIn> blocks) {
-        this.blocks = blocks;
-    }
-
-    public List<String> getStrings() {
-        return strings;
-    }
-
-    public void setStrings(List<String> strings) {
-        this.strings = strings;
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
     public List<IfShort> getIfShorts() {

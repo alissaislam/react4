@@ -5,9 +5,7 @@ import java.util.List;
 
 public class JsxElementSelfClosing extends Node{
     String jsxTag;
-    List<Id> ids;
-    List<BlockIn> blocks= new ArrayList<>();
-    List<String> stringsIns = new ArrayList<>();
+    List<Attribute> attributes = new ArrayList<> ();
 
     public String getJsxTag() {
         return jsxTag;
@@ -17,27 +15,11 @@ public class JsxElementSelfClosing extends Node{
         this.jsxTag = jsxTag;
     }
 
-    public List<Id> getIds() {
-        return ids;
+    public List<Attribute> getAttributes() {
+        return attributes;
     }
 
-    public void setIds(List<Id> ids) {
-        this.ids = ids;
-    }
-
-    public List<BlockIn> getBlocks() {
-        return blocks;
-    }
-
-    public void setBlocks(List<BlockIn> blocks) {
-        this.blocks = blocks;
-    }
-
-    public List<String> getStringsIns() {
-        return stringsIns;
-    }
-
-    public void setStringsIns(List<String> stringsIns) {
-        this.stringsIns = stringsIns;
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 }

@@ -198,6 +198,16 @@ public interface ReactParserListener extends ParseTreeListener {
 	 */
 	void exitBlockIn(ReactParser.BlockInContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ReactParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void enterAttribute(ReactParser.AttributeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ReactParser#attribute}.
+	 * @param ctx the parse tree
+	 */
+	void exitAttribute(ReactParser.AttributeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ReactParser#jsxArguments}.
 	 * @param ctx the parse tree
 	 */

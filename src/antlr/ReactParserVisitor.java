@@ -125,6 +125,12 @@ public interface ReactParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlockIn(ReactParser.BlockInContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ReactParser#attribute}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAttribute(ReactParser.AttributeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ReactParser#jsxArguments}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
