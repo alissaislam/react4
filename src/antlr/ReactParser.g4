@@ -54,9 +54,7 @@ options{tokenVocab=ReactLexer;}
     jsxElementNonSelfClosing: (JSX_TAG|JSX_TAGModeCall) (attribute)* MoreThanIn ( OpenBraceInIn (ifShort|Id((Dot|DotModeCall) Id)*?) CloseBraceCall |LETTERR| jsxElementIn |blockOfarguments)*? CLOSE_TAGIn  (MoreThan|MoreThanModeCall) ;
     jsxElementSelfClosing:jsx_tag (attribute)* Self_CLOSE_TAG;
 
-    jsxElementIn:  (
-    (JSX_TAGIn|JSX_TAGInIn) (attribute)* MoreThanIn (  OpenBraceInIn Id((Dot|DotModeCall) Id (PlussPlussModeCall|MinusMinusModeCall)?)*?CloseBraceCall  |jsxElementIn | LETTERR |blockOfarguments )*?  CLOSE_TAGIn  MoreThanInIn |jsxElementSelfClosing
-    );
+    jsxElementIn:  ((JSX_TAGIn|JSX_TAGInIn) (attribute)* MoreThanIn (  OpenBraceInIn Id((Dot|DotModeCall) Id (PlussPlussModeCall|MinusMinusModeCall)?)*?CloseBraceCall  |jsxElementIn | LETTERR |blockOfarguments )*?  CLOSE_TAGIn  MoreThanInIn |jsxElementSelfClosing);
     blockIn:OpenBraceIn (jsxArguments )* CloseBraceIn;
     attribute:id ( AssignIn (blockIn|StringIn));
     jsxArguments:jsxParameters(CommaIn jsxParameters)*;
@@ -71,7 +69,7 @@ options{tokenVocab=ReactLexer;}
     jsxArrowFunction:(OpenParenIn jsxArguments? CloseParenIn | jsxArgument ) ARROWIn (jsxExpression? | OpenBraceIn jsxExpression* CloseBraceIn );
     jsxCallfunction :(id ( DotIn id | DotIn jsxSimpleCallfunction)+ | jsxSimpleCallfunction) ;
     jsxSimpleCallfunction : id OpenParenIn jsxArguments? CloseParenIn ;
-    jsxArgument : (id (AssignIn (jsxExpression|jsxArrowFunction))?);
+    jsxArgument : (id (AssignIn (jsxExpression|jsxArrowFunction)));
     jsxExpression:
                      OpenParenIn jsxExpression (MultiplyIn | DivideIn) jsxExpression CloseParenIn
                    | OpenParenIn jsxExpression( PlusIn | MinusIn) jsxExpression CloseParenIn

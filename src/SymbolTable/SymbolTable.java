@@ -15,7 +15,7 @@ public class SymbolTable {
     }
 
     public void print() {
-        System.out.println("\t\t\t\t\tType\t\t\t\t\t\t\t\t\tKind\t\t\t\t\t\t\t\t\tName\t\t\t\t\t\t\t\t\tAssigned\t\t\t\t\t\t\t\t\tValue\t\t\t\t\t\t\t\t\tscope level\t\t\t\t\t\t\t\t\tscope Id\t\t\t\t\t\t\t\tscope Group Id");
+        System.out.println("\t\t\t\t\tType\t\t\t\t\t\t\t\t\tKind\t\t\t\t\t\t\t\t\t  Name\t\t\t\t\t\t\t\t\t  Assigned\t\t\t\t\t\t\t\t\t   Value\t\t\t\t\t\t\t\t  scope level\t\t\t\t\t\t\t\t  scope Id\t\t\t\t\t\t\t\tscope Group Id");
         System.out.println("├────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼──────────────────────────────────────────┼──────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┼─────────────────────────────────────────┤");
 
         for (StRow row : rows) {

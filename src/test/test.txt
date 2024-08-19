@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import ProductCard from './ProductCard';
-import  useState  from 'react';
+import  {useState}  from 'react';
 const products=[
   {id:1,name:'First product',image:'image url',description:'This is First product.'},
   {id:2,name:'Second product',image:'image url',description:'This is Second product.'},
@@ -19,7 +19,7 @@ const products=[
       ?
       (products.map(product =>
         <div key={product.id} className='product'>
-          <ProductCard product={product} onProductClick={handleProductClick} />
+          <ProductCard  product={product} onProductClick={handleProductClick} />
         </div>
       ))
       :
