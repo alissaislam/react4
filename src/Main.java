@@ -1,3 +1,4 @@
+import Error.Handling.Handle;
 import antlr.ReactLexer;
 import antlr.ReactParser;
 import ast.Models.Id;
@@ -11,7 +12,7 @@ import visitors.BaseVisitor;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
+
 
 import static org.antlr.v4.runtime.CharStreams.fromFileName;
 
@@ -20,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
 
         CharStream cs=null;
-        String source  = "src/test/test.txt";
+        String source  = "src/test/test1.txt";
         try{
             cs = fromFileName (source);
         }catch (Exception e){
@@ -33,6 +34,7 @@ public class Main {
         Start  doc = (Start) new BaseVisitor().visit(tree);
         print (doc);
         BaseVisitor.getSymbolTable ().print ();
+        Handle.errorCheck();
 
     }
     public static void print(Node root) {

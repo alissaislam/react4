@@ -1,19 +1,3 @@
-import './App.css';
-
- {
- const x=8
- {
- let x
- x
- }
- }
- {
- x
-    {
-        x
-    }
-    {
-    y
-        x
-    }
- }
+<div>
+  {isLoading ? <Spinner /> : <Content />}
+</div>
