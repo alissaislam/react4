@@ -49,4 +49,7 @@ public class If extends Node{
     public void setElseElement(Else elseElement) {
         this.elseElement = elseElement;
     }
+    public String getHTML() {
+        return " ";
+    }
 }

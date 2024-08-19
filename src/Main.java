@@ -27,12 +27,14 @@ public class Main {
             System.out.println (e);
         }
         ReactLexer lexer = new ReactLexer(cs);
-        CommonTokenStream token =  new CommonTokenStream((TokenSource) lexer);
+        CommonTokenStream token =  new CommonTokenStream(lexer);
         ReactParser parser = new ReactParser(token);
         ParseTree tree = parser.start();
         Start  doc = (Start) new BaseVisitor().visit(tree);
         print (doc);
         BaseVisitor.getSymbolTable ().print ();
+        System.out.println(doc.getHTML());
+
 
     }
     public static void print(Node root) {

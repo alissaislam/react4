@@ -55,4 +55,27 @@ public class Parameters extends Node  {
     public void setCallFunction(CallFunction callFunction) {
         this.callFunction = callFunction;
     }
+    public String generateCode(){
+        String content="";
+        if(arrowFunction !=null){
+            content= arrowFunction.generateCode();
+        }
+        if(callIdentifier !=null){
+            content = callFunction.generateCode();
+        }
+        if(argument!=null){
+            content = argument.generateCode();
+        }
+        if(callFunction!=null){
+            content=callFunction.generateCode();
+        }
+        if(expression!=null){
+            content= expression.generateCode();
+        }
+        if(blockOfarguments!=null){
+            content= blockOfarguments.getHtml();
+        }
+        return content ;
+    }
 }
+

@@ -172,6 +172,9 @@ public class StatementElement extends Node{
     public void setJsxElement(JsxElement jsxElement) {
         this.jsxElement = jsxElement;
     }
+    public String getHTML() {
+        return "";
+    }
 
 //    public Expression getExpression() {
 //        return expression;

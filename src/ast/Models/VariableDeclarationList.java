@@ -14,4 +14,8 @@ public class VariableDeclarationList extends Node{
     public void setVariableDeclarationList(List<VariableDeclaration> variableDeclarationList) {
         this.variableDeclarationList = variableDeclarationList;
     }
+
+    public String getHTML() {
+        return " ";
+    }
 }

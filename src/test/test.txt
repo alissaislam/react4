@@ -1,17 +1,28 @@
-import './App.css';
 import React from 'react';
-import ProductCard from './ProductCard';
 import  {useState}  from 'react';
-const products=[
-  {id:1,name:'First product',image:'image url',description:'This is First product.'},
-  {id:2,name:'Second product',image:'image url',description:'This is Second product.'},
-  {id:3,name:'Third product',image:'image url',description:'This is Third product.'}
-]
- App() {
-  const [expandedProduct,setExpandedProduct] = useState(null)
-  const handleProductClick=(product)=>{
-    setExpandedProduct(product)
-  }
+
+const products = [
+  { id: 1, name: 'First product', image: 'image url', description: 'This is First product.' },
+  { id: 2, name: 'Second product', image: 'image url', description: 'This is Second product.' },
+  { id: 3, name: 'Third product', image: 'image url', description: 'This is Third product.' }
+];
+
+function ProductCard({ product, onProductClick }) {
+  return (
+    <div onClick={() => onProductClick(product)}>
+      <h3>{product.name}</h3>
+      <img src={product.image} />
+    </div>
+  );
+}
+
+function App() {
+  const [expandedProduct, setExpandedProduct] = useState(null);
+
+  const handleProductClick = (product) => {
+    setExpandedProduct(product);
+  };
+
   return (
     <div className="App">
     {
@@ -47,6 +58,5 @@ const products=[
   </div>
     );
 }
-
 
 export default App;

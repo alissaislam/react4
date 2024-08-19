@@ -2,7 +2,7 @@ package ast.Models;
 
 public class Comment extends Node{
     String singleLineComment;
-    String MultiLineComment;;
+    String MultiLineComment;
 
     public String getSingleLineComment() {
         return singleLineComment;

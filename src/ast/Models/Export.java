@@ -1,6 +1,6 @@
 package ast.Models;
 
-public class Export extends Node{
+public class Export extends Node {
     String eap;
     String def;
     CallIdentifier callIdentifier;
@@ -27,5 +27,11 @@ public class Export extends Node{
 
     public void setCallIdentifier(CallIdentifier callIdentifier) {
         this.callIdentifier = callIdentifier;
+    }
+
+    public String generateCode() {
+        return "export default " +
+                callIdentifier.generateCode() +
+                ";";
     }
 }

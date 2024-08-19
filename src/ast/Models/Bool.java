@@ -1,8 +1,7 @@
 package ast.Models;
 
-public class Bool extends JsxExpression{
-String bool;
-
+public class Bool extends JsxExpression {
+    String bool;
 
 
     public String getBool() {

@@ -10,4 +10,7 @@ public class Kind extends Node{
     public void setType(String type) {
         this.type = type;
     }
+    public String generateCode(){
+        return type;
+    }
 }

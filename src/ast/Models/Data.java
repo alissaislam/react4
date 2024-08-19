@@ -2,7 +2,7 @@ package ast.Models;
 
 import SymbolTable.StRow;
 
-public  class Data extends Node {
+public class Data extends Node {
     Array array;
     Number number;
     Stringg stringg;
@@ -65,6 +65,24 @@ public  class Data extends Node {
 
     public void setBool(Bool bool) {
         this.bool = bool;
+    }
+
+    public String generateCode() {
+        String content = "";
+        if (array != null) {
+            content = array.generateCode();
+        } else if (number != null) {
+            content = String.valueOf(number.getValue());
+        } else if (stringg != null) {
+            content = stringg.getString();
+        } else if (id != null) {
+            content= id.generateCode();
+        } else if (map != null) {
+            content= map.generateCode();
+        } else if (bool != null) {
+            content= bool.getBool();
+        }
+        return content;
     }
 
 }

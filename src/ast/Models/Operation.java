@@ -10,4 +10,7 @@ public class Operation extends  Node {
     public void setOperation(String operation) {
         this.operation = operation;
     }
+    public String generateCode(){
+        return operation;
+    }
 }

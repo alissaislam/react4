@@ -13,4 +13,9 @@ Arguments arguments;
     public void setArguments(Arguments arguments) {
         this.arguments = arguments;
     }
+
+
+    public String getHtml() {
+        return "";
+    }
 }

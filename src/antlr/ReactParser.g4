@@ -86,13 +86,7 @@ options{tokenVocab=ReactLexer;}
     (openParen (jsxElement) closeParen)
     |jsxElement
     ) (SemiColon|SemiColonModeCall)* (IgSemiColon|IgSemiColonModeCall) *;
-
-
-
-
-
     block:OpenBrace (statment )* CloseBrace;
-
     else_if : Else If OpenParen conditions CloseParen  ( block | statment ) ;
     else :  Else ( block | statment) ;
     forLoopParts : (kind? variableDeclaration SemiColon conditions SemiColon ( variableDeclaration | id (PlusPlus|MinusMinus))| id id Colon callIdentifier ) ;
@@ -195,7 +189,7 @@ options{tokenVocab=ReactLexer;}
                    | IdentityNotEquals
                    | IdentityNotEqualsModeCall
                    ;
-                   
+
     id:IDENTIFIER|Id|IDENTIFIERIn;
     openParen:OpenParen|OpenParenModeCall;
     closeParen:CloseParen|CloseParenModeCall;
@@ -203,5 +197,6 @@ options{tokenVocab=ReactLexer;}
     closeBrace:CloseBrace|CloseBraceModeCall;
     openBrace:OpenBrace|OpenBraceModeCall;
     jsx_tag:JSX_TAGIn|JSX_TAGInIn|JSX_TAG;
-                   
+
     break:Break;
+

@@ -37,4 +37,20 @@ public class MapElement extends Node {
     public void setIdentifier(Id identifier) {
         Identifier = identifier;
     }
+
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+        if (Identifier != null) {
+            content.append(Identifier.getId());
+        }
+        content.append(" : ");
+        if (callFunction != null) {
+            content.append(callFunction.generateCode());
+        } else if (callIdentifier != null) {
+            content.append(callIdentifier.generateCode());
+        } else if (expressions != null) {
+            content.append(expressions.generateCode());
+        }
+        return content.toString();
+    }
 }

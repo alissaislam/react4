@@ -10,4 +10,8 @@ public class Statement extends Node {
     public void setStatementElement(StatementElement statementElement) {
         this.statementElement = statementElement;
     }
+
+    public String getHTML() {
+        return " ";
+    }
 }

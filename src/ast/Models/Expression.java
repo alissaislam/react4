@@ -53,4 +53,18 @@ public  class Expression  extends Parameters{
  public void setData(Data data) {
   this.data = data;
  }
+
+ public String generateCode() {
+  String content="";
+  if (data != null) {
+   content= data.generateCode();
+  } else if (callIdentifier != null) {
+   content= callIdentifier.generateCode() + (operator);
+  } else if (expressionList.size() == 2 && operator != null) {
+   String leftSide = expressionList.get(0).generateCode();
+   String rightSide = expressionList.get(1).generateCode();
+   content= "(" + leftSide + " " + operator + " " + rightSide + ")";
+  }
+  return content;
+ }
 }
