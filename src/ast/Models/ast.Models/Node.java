@@ -1,4 +1,4 @@
-package ast.Models;
+package ast.Models.ast.Models;
 
 
 import java.util.ArrayList;
@@ -10,9 +10,12 @@ public abstract class Node {
     String node_type;
     int count_child;
     List<Node> child =new ArrayList<> ();
+
+
     public List<Node> getChild() {
         return child;
     }
+
     public void setChild(List<Node> child) {
         this.child = child;
     }

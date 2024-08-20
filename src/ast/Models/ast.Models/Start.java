@@ -1,4 +1,7 @@
-package ast.Models;
+package ast.Models.ast.Models;
+import ast.Models.Node;
+import ast.Models.Statement;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Start extends Node{
+public class Start extends Node {
     private static boolean isExists;
     List<Statement> statement_list = new ArrayList<>();
 
@@ -22,8 +25,9 @@ public class Start extends Node{
 
     public String getHTML() {
         System.out.println("in getHtml ");
-        String content = "";
+        String content = "helooo world";
         try {
+
             File directory = new File("HTML_output");
             if (!directory.exists()) {
                 if (directory.mkdirs()) {

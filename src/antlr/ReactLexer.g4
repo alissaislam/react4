@@ -1,11 +1,6 @@
 lexer grammar ReactLexer;
-
 DoubleQuote :'"';
 SingleQuote :'\'';
-
-//Identifier: [a-zA-Z_][a-zA-Z0-9_]*;
-
-
 Break      : 'break';
 Do         : 'do';
 Instanceof : 'instanceof';
@@ -34,10 +29,6 @@ In         : 'in';
 Try        : 'try';
 As         : 'as';
 From       : 'from';
-//Foreach    : 'foreach';
-
-/// Future Reserved Words
-
 Class   : 'class';
 Enum    : 'enum';
 Extends : 'extends';
@@ -48,9 +39,6 @@ Import  : 'import';
 
 Async : 'async';
 Await : 'await';
-
-
-
 IgSemiColon                : ';;' -> skip ;
 OpenBracket                : '[';
 CloseBracket               : ']';
@@ -106,8 +94,6 @@ BitXorAssign               : '^=';
 BitOrAssign                : '|=';
 PowerAssign                : '**=';
 ARROW                      : '=>';
-
-
 //hooks
 UseState:'useState';
 UseEffect:'useEffect';
@@ -115,24 +101,12 @@ UseEffect:'useEffect';
 UseRef:'useRef';
 //UseReducer:'useReducer';
 UseMemo:'useMemo';
-//UseCallback:'useCallback';
-//UseImperativeHandle:'useImperativeHandle';
-//UseLayoutEffect:'useLayoutEffect';
-//UseDebugValue :'useDebugValue';
-
-
-
 /// Null Literals
-
 NullLiteral: 'null';
-
 /// Boolean Literals
-
 BooleanLiteral: 'true' | 'false';
-
 /// The following tokens are also considered to be FutureReservedWords
 /// when parsing strict mode
-
 Implements   : 'implements';
 Let    : 'let'       ;
 Private      : 'private'   ;

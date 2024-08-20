@@ -1,4 +1,4 @@
-// Generated from D:/Intellgi/react4/src/antlr/ReactLexer.g4 by ANTLR 4.13.1
+// Generated from E:/Forth year/react4/src/antlr/ReactLexer.g4 by ANTLR 4.13.1
 package antlr;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
