@@ -50,6 +50,23 @@ public class Condition extends Node{
     public void setId(Id id) {
         this.id = id;
     }
-    public String generateCode() {return "";}
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+        if (operation != null) {
+            content.append(dataList.get (0).generateCode());
+            content.append(operation.generateCode());
+            content.append(dataList.get (1).generateCode());
+        }
+        if (bool != null) {
+            content.append(bool);
+        }
+        if (id != null) {
+            for (String not : notList) {
+                content.append (not);
+            }
+            content.append(id.generateCode());
+        }
+        return content.toString();
+    }
 
 }

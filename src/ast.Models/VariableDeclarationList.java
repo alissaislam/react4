@@ -19,5 +19,19 @@ public class VariableDeclarationList extends Node {
         return " ";
     }
 
-    public String generateCode() {return "";}
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+
+        if (!variableDeclarationList.isEmpty ()) {
+            for(int i =0 ; i<variableDeclarationList.size (); i++){
+                if(i==variableDeclarationList.size ()-1)
+                    content.append(variableDeclarationList.get (i).generateCode());
+                else {
+                    content.append(variableDeclarationList.get (i).generateCode());
+                    content.append(",");
+                }
+            }
+        }
+        return content.toString();
+    }
 }

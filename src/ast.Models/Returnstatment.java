@@ -21,8 +21,17 @@ public class Returnstatment extends Node {
         this.jsxBlock = jsxBlock;
     }
 
+
     public String generateCode() {
-        return "";
+        StringBuilder content = new StringBuilder();
+        content.append("return ");
+        if (experssion != null) {
+            content.append(experssion.generateCode());
+        }
+        if (jsxBlock != null) {
+            content.append(jsxBlock.generateCode());
+        }
+        return content.toString();
     }
 
 

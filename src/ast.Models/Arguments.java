@@ -15,8 +15,22 @@ public class Arguments extends Node {
     }
 
     public String generateCode() {
-        return "";
+        StringBuilder content = new StringBuilder();
+
+        if (!parametersList.isEmpty ()) {
+            for(int i =0 ; i<parametersList.size (); i++){
+                if(i==parametersList.size ()-1)
+                    content.append(parametersList.get (i).generateCode());
+                else {
+                    content.append(parametersList.get (i).generateCode());
+                    content.append(",");
+                }
+            }
+        }
+        return content.toString();
     }
+
+
 
 
 }

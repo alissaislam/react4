@@ -29,4 +29,21 @@ public class Argument extends Parameters{
     public void setArrowFunction(ArrowFunction arrowFunction) {
         this.arrowFunction = arrowFunction;
     }
+
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+        if (callIdentifier != null) {
+            content.append(callIdentifier.generateCode());
+        }
+        if(experssion!=null||arrowFunction!=null){
+            content.append (" = ");
+            if (experssion != null) {
+                content.append (experssion.generateCode ());
+            }
+            if (arrowFunction != null) {
+                content.append (arrowFunction.generateCode ());
+            }
+        }
+        return content.toString();
+    }
 }

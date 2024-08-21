@@ -19,4 +19,19 @@ public class JsxSimpleCallfunction extends Node{
     public void setJsxArguments(JsxArguments jsxArguments) {
         this.jsxArguments = jsxArguments;
     }
+
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+
+        if (id != null) {
+            content.append(id.generateCode()).append(" ");
+        }
+        content.append("(");
+        if (jsxArguments != null) {
+            content.append(jsxArguments.generateCode()); // Append arguments if they exist
+        }
+        content.append(")");
+
+        return content.toString();
+    }
 }

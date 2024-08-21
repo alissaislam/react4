@@ -20,6 +20,14 @@ public class BlockOfarguments extends Node {
     }
 
     public String generateCode() {
-        return "";
+        StringBuilder content = new StringBuilder();
+        content.append("{");
+        if ( arguments!=null) {
+
+                content.append(arguments.generateCode());
+        }
+        content.append("}");
+
+        return content.toString();
     }
 }

@@ -12,6 +12,10 @@ public class Hook extends Node {
     }
 
     public String generateCode() {
-        return "";
+        StringBuilder content = new StringBuilder();
+        if (hook != null) {
+            content.append(hook);
+        }
+        return content.toString();
     }
 }

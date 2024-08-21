@@ -12,6 +12,15 @@ public class JsxExpression extends Data {
     Stringg stringg;
     Bool booll;
     Id idd;
+    String paren;
+
+    public String getParen() {
+        return paren;
+    }
+
+    public void setParen(String paren) {
+        this.paren = paren;
+    }
 
     public List<JsxExpression> getJsxExpressionList() {
         return jsxExpressionList;
@@ -59,5 +68,37 @@ public class JsxExpression extends Data {
 
     public void setIdd(Id id) {
         this.id = idd;
+    }
+
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+        if (paren != null) {
+            content.append("(");
+        }
+        if (!jsxExpressionList.isEmpty ()) {
+            for (JsxExpression jsxExpression : jsxExpressionList){
+                content.append(jsxExpression.generateCode());
+            }
+        }
+        if (paren != null) {
+            content.append(")");
+        }
+        if (number != null) {
+            content.append(number.getValue ());
+        }
+        if (stringg != null) {
+            content.append(stringg.getStringg ());
+        }
+
+        if (booll != null) {
+            content.append(booll.getBooll ());
+        }
+
+        if (id != null) {
+            content.append(id.getId ());
+        }
+
+
+        return content.toString();
     }
 }

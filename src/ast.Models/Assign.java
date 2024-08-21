@@ -2,9 +2,6 @@ package ast.Models;
 
 public class Assign  extends Node {
     String assign;
-
-
-
     public String getAssign() {
         return assign;
     }

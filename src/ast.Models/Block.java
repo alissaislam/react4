@@ -15,7 +15,15 @@ public class Block extends Node {
     }
 
     public String generateCode() {
-        return "";
+        StringBuilder content = new StringBuilder();
+        content.append("{");
+        if ( !statementList.isEmpty ()) {
+            for (Statement statement: statementList)
+            content.append(statement.generateCode());
+        }
+        content.append("}");
+
+        return content.toString();
     }
 
 }

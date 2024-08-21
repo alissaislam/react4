@@ -1068,6 +1068,9 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxExpression.setOperation (ctx.MultiplyIn ().toString ());
             jsxExpression.getChild ().add (stringg);
         }
+        if(ctx.OpenParenIn ()!=null)
+            jsxExpression.setParen ("(");
+
         if (ctx.DivideIn () !=null){
             jsxExpression.setOperation (ctx.DivideIn ().toString ());
             Stringg stringg = new Stringg();
@@ -1242,6 +1245,12 @@ BaseVisitor extends ReactParserBaseVisitor {
         for ( int i =0 ;i<ctx.id ().size ();i++){
             forLoopParts.getIdList ().add (visitId (ctx.id ().get (i)));
             forLoopParts.getChild ().add (forLoopParts.getIdList ().get (i));
+        }
+        if (ctx.PlusPlus ()!=null){
+            forLoopParts.setOp (ctx.PlusPlus ().getText ());
+        }
+        if (ctx.MinusMinus ()!=null){
+            forLoopParts.setOp (ctx.MinusMinus ().getText ());
         }
         return forLoopParts;
     }

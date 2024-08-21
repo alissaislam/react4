@@ -64,4 +64,31 @@ public class VariableDeclaration extends Node{
     public void setArrowFunction(ArrowFunction arrowFunction) {
         this.arrowFunction = arrowFunction;
     }
+
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+
+        if (kind != null) {
+            content.append (kind.generateCode ());
+        }
+        if (id != null) {
+            content.append(id.generateCode());
+        }
+        if (expression != null||arrowFunction != null||callFunction != null||callIdentifier != null) {
+            content.append("=");
+            if (expression != null) {
+                content.append(expression);
+            }
+            if (arrowFunction != null) {
+                content.append(arrowFunction.generateCode());
+            }
+            if (callIdentifier != null) {
+                content.append(callIdentifier.generateCode());
+            }
+            if (callFunction != null) {
+                content.append(callFunction.generateCode());
+            }
+        }
+        return content.toString();
+    }
 }

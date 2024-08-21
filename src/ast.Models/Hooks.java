@@ -37,6 +37,21 @@ public class Hooks extends Node{
     public void setUseMemo(UseMemo useMemo) {
         this.useMemo = useMemo;
     }
-    public String generateCode() {return "";}
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+        if (useState != null) {
+            content.append(useState.generateCode());
+        }
+        if (useRef != null) {
+            content.append(useRef.generateCode());
+        }
+        if (useMemo != null) {
+            content.append(useMemo.generateCode());
+        }
+        if (useEffect != null) {
+            content.append(useEffect.generateCode());
+        }
+        return content.toString();
+    }
 
 }

@@ -97,7 +97,7 @@ options{tokenVocab=ReactLexer;}
     arguments : parameters((Comma|CommaModeCall) parameters)*;
 
     blockOfarguments :OpenBrace arguments CloseBrace;
-      variableDeclaration : kind? (id) (( Assign (expression | callfunction | callIdentifier | arrowFunction) )? )  ;
+    variableDeclaration : kind? (id) (( Assign (expression | callfunction | callIdentifier | arrowFunction) )? )  ;
     variableDeclarationList : variableDeclaration ( Comma variableDeclaration )* ;
 
     arrowFunction: Async?(openParen arguments? closeParen | id )(ARROW|ARROWModeCall)

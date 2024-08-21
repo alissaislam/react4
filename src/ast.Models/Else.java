@@ -20,6 +20,16 @@ public class Else extends Node{
         this.statement = statement;
     }
 
-    public String generateCode() {return "";}
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+        content.append("else");
+        if (block != null) {
+            content.append(block.generateCode());
+        }
+        if (statement != null) {
+            content.append(statement.generateCode());
+        }
+        return content.toString();
+    }
 
 }

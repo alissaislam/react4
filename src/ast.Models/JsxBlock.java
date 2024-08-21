@@ -11,4 +11,15 @@ JsxElement jsxElement;
     public void setJsxElement(JsxElement jsxElement) {
         this.jsxElement = jsxElement;
     }
+
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+        content.append("(");
+        if (jsxElement != null) {
+            content.append(jsxElement.generateCode()).append(" ");
+        }
+        content.append(")");
+
+        return content.toString();
+    }
 }

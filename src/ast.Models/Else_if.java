@@ -29,7 +29,21 @@ public class Else_if extends Node{
     public void setStatement(Statement statement) {
         this.statement = statement;
     }
-    public String generateCode() {return "";}
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+        content.append("else if (");
+        if (condition != null) {
+            content.append(condition.generateCode());
+        }
+        content.append(")");
+        if (block != null) {
+            content.append(block.generateCode());
+        }
+        if (statement != null) {
+            content.append(statement.generateCode());
+        }
+        return content.toString();
+    }
 
 
 }

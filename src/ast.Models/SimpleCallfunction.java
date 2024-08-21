@@ -22,7 +22,16 @@ public class SimpleCallfunction extends Node {
     }
 
     public String generateCode() {
-        return "";
+        StringBuilder content = new StringBuilder();
+        if (id != null) {
+            content.append(id.generateCode());
+        }
+        content.append("(");
+        if (arguments != null) {
+            content.append(arguments.generateCode());
+        }
+        content.append(")");
+        return content.toString();
     }
 
 

@@ -68,4 +68,43 @@ public class ArrowFunction extends  Parameters{
     public void setJsxElement(JsxElement jsxElement) {
         this.jsxElement = jsxElement;
     }
+
+    public String generateCode() {
+        StringBuilder content = new StringBuilder();
+
+        if (async != null) {
+            content.append(async);
+        }
+        if (id != null) {
+            content.append(id.generateCode());
+        }
+        if (arguments != null) {
+            content.append("(");
+            content.append(arguments.generateCode());
+            content.append(")");
+        }
+        content.append(" => ");
+        if (experssion != null) {
+            content.append(experssion.generateCode());
+        }
+        if (!statementList.isEmpty ()) {
+            content.append("{");
+                for (Statement statement: statementList)
+                    content.append(statement.generateCode());
+
+            if (returnstatment != null) {
+                content.append(returnstatment.generateCode());
+            }
+            content.append("}");
+        }
+
+        if (jsxElement != null) {
+            content.append(jsxElement.generateCode());
+        }
+
+        if (returnstatment != null) {
+            content.append(returnstatment.generateCode());
+        }
+        return content.toString();
+    }
 }

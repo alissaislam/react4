@@ -33,4 +33,33 @@ public class UseRef extends Node{
     public void setNullLiteral(NullLiteral nullLiteral) {
         this.nullLiteral = nullLiteral;
     }
+
+    public String generateCode() {
+        StringBuilder code = new StringBuilder();
+
+        // Handle optional kind
+        if (kind != null) {
+            code.append(kind.generateCode()).append(" ");
+        }
+
+        // Generate code for the identifier
+        if (!ids.isEmpty()) {
+            code.append(ids.get(0).generateCode()).append(" = ");
+        }
+
+        // Append 'useRef('
+        code.append("useRef(");
+
+        // Handle the argument to useRef (either another id or null)
+        if (ids.size() > 1) {
+            code.append(ids.get(1).generateCode());
+        } else if (nullLiteral != null) {
+            code.append("null");
+        }
+
+        // Close the useRef function call
+        code.append(");");
+
+        return code.toString();
+    }
 }
