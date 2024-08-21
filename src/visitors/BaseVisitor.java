@@ -2474,10 +2474,6 @@ BaseVisitor extends ReactParserBaseVisitor {
         return row.getKind().equals("const");
     }
 
-    public static boolean isReading(StRow row) {
-        return row.getKind().equals("*");
-    }
-
     public static boolean isBlockScoped(StRow row) {
         return (row.getKind().equals("let") || row.getKind().equals("const")) && !row.getKind().equals("*");
     }
