@@ -24,7 +24,7 @@ public class JsxSimpleCallfunction extends Node{
         StringBuilder content = new StringBuilder();
 
         if (id != null) {
-            content.append(id.generateCode()).append(" ");
+            content.append(id.getId ().substring (0)).append(" ");
         }
         content.append("(");
         if (jsxArguments != null) {

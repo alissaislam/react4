@@ -33,17 +33,18 @@ public class JsxArrowFunction extends JsxParameters{
     }
     public String generateCode() {
         StringBuilder content = new StringBuilder();
-
+        content.append("(");
         if (jsxArguments != null) {
-            content.append("(");
+
             content.append(jsxArguments.generateCode());
-            content.append(")");
+
         }
 
         if (jsxArgument != null) {
             content.append(jsxArgument.generateCode()); // Append arguments if they exist
         }
-        content.append("=>");
+        content.append(") ");
+        content.append(" => ");
 
         if(jsxExpressionList.size ()==1){
             content.append(jsxExpressionList.get (0).generateCode());

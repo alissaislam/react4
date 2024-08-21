@@ -63,13 +63,12 @@ public class JsxElementNonSelfClosing extends Node {
 
     // New method to generate the code for the JSX element
     public String generateCode() {
-       // System.out.println ("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
         StringBuilder code = new StringBuilder();
 
         // Append the JSX tag
-        System.out.println ("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-        System.out.println (jsxTag);
-        code.append(jsxTag);
+        String i = jsxTag;
+
+        code.append(i.charAt (0)+" "+ i.substring (1));
 
         // Append attributes
         for (Attribute attribute : attributes) {

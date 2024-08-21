@@ -70,7 +70,7 @@ public class JsxElementIn extends Node {
             code.append(jsxElementSelfClosing.generateCode());
         } else {
             // Generate code for non-self-closing JSX element
-            code.append("<").append(jsxTag);
+            code.append(jsxTag.charAt (0)+" "+ jsxTag.substring (1));
 
             // Append attributes
             for (Attribute attribute : attributes) {

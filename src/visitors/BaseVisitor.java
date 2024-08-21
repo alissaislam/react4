@@ -461,19 +461,19 @@ BaseVisitor extends ReactParserBaseVisitor {
         comment.setCount_child(ctx.getChildCount());
         comment.setLine_num(String.valueOf(ctx.getStart().getLine()));
         if (ctx.SINGLE_LINE_COMMENT()!=null){
-            comment.setSingleLineComment(ctx.SINGLE_LINE_COMMENT().toString());
-            comment.setNode_name(ctx.SINGLE_LINE_COMMENT().toString());
+            comment.setSingleLineComment(ctx.SINGLE_LINE_COMMENT().getText());
+            comment.setNode_name(ctx.SINGLE_LINE_COMMENT().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("SINGLE_LINE_COMMENT");
-            stringg.setString(ctx.SINGLE_LINE_COMMENT().toString());
+            stringg.setString(ctx.SINGLE_LINE_COMMENT().getText());
             comment.getChild().add(stringg);
         }
         if (ctx.MULTI_LINE_COMMENT()!=null){
-            comment.setMultiLineComment(ctx.MULTI_LINE_COMMENT().toString());
-            comment.setNode_name(ctx.MULTI_LINE_COMMENT().toString());
+            comment.setMultiLineComment(ctx.MULTI_LINE_COMMENT().getText());
+            comment.setNode_name(ctx.MULTI_LINE_COMMENT().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("MULTI_LINE_COMMENT");
-            stringg.setString(ctx.MULTI_LINE_COMMENT().toString());
+            stringg.setString(ctx.MULTI_LINE_COMMENT().getText());
             comment.getChild().add(stringg);
         }
 //        StRow row = new StRow();
@@ -635,13 +635,13 @@ BaseVisitor extends ReactParserBaseVisitor {
             scopes.pop ();
         }
         if (ctx.String()!=null) {
-            importElement.setString(ctx.String().toString());
+            importElement.setString(ctx.String().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("String");
             stringg.setNode_name (ctx.String().getText ());
             stringg.setCount_child(ctx.getChildCount());
             stringg.setLine_num(String.valueOf(ctx.getStart().getLine()));
-            stringg.setString(ctx.String().toString());
+            stringg.setString(ctx.String().getText());
             importElement.getChild().add(stringg);
         }
 
@@ -742,10 +742,10 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElementNonSelfClosing.setJsxTag (ctx.JSX_TAGModeCall ().getText ());
         }
         for (int i=0;i<ctx.LETTERR().size();i++) {
-            jsxElementNonSelfClosing.getLetterrs().add(ctx.LETTERR(i).toString());
+            jsxElementNonSelfClosing.getLetterrs().add(ctx.LETTERR(i).getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("LETTERR");
-            stringg.setString(ctx.LETTERR().toString());
+            stringg.setString(ctx.LETTERR().toString ());
             jsxElementNonSelfClosing.getChild().add(stringg);
             StRow row = new StRow();
             row.setType ("Text");
@@ -791,7 +791,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         if (ctx.StringIn() !=null) {
             Stringg stringg = new Stringg();
             stringg.setNode_type("StringIn");
-            stringg.setString(ctx.StringIn().toString());
+            stringg.setString(ctx.StringIn().getText());
             attribute.setStringg(stringg);
             attribute.getChild().add(stringg);
             row.setValue (attribute.getStringg ().getString ());
@@ -827,6 +827,13 @@ BaseVisitor extends ReactParserBaseVisitor {
         jsxElementIn.setCount_child(ctx.getChildCount());
         jsxElementIn.setLine_num(String.valueOf(ctx.getStart().getLine()));
 
+        if(ctx.JSX_TAGIn ()!=null){
+            jsxElementIn.setJsxTag (ctx.JSX_TAGIn ().getText ());
+        }
+        if(ctx.JSX_TAGInIn ()!=null){
+            jsxElementIn.setJsxTag (ctx.JSX_TAGInIn ().getText ());
+        }
+
         if (ctx.OpenBraceInIn ()!=null){
             scopes.add (new Scope (scopes.size (),scopes.getgId ()));
         }
@@ -836,10 +843,10 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElementIn.getChild().add(jsxElementIn.getJsxElementIns().get(i));
         }
         for (int i=0;i<ctx.LETTERR().size();i++) {
-            jsxElementIn.getLetterrs().add(ctx.LETTERR(i).toString());
+            jsxElementIn.getLetterrs().add(ctx.LETTERR(i).getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("LETTERR");
-            stringg.setString(ctx.LETTERR().get(i).toString());
+            stringg.setString(ctx.LETTERR().get(i).getText());
             jsxElementIn.getChild().add(stringg);
         }
         if (ctx.CloseBraceCall ()!=null){
@@ -985,7 +992,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         jsxCallfunction.setNode_type ("JsxCallfunction");
         jsxCallfunction.setCount_child(ctx.getChildCount());
         jsxCallfunction.setLine_num(String.valueOf(ctx.getStart().getLine()));
-        //jsxCallfunction.setNode_name (ctx.jsxSimpleCallfunction (ctx.jsxSimpleCallfunction ().size ()-1).IDENTIFIERIn ().toString ());
+        //jsxCallfunction.setNode_name (ctx.jsxSimpleCallfunction (ctx.jsxSimpleCallfunction ().size ()-1).IDENTIFIERIn ().getText ());
 
         for ( int i =0 ;i<ctx.jsxSimpleCallfunction ().size ();i++){
             jsxCallfunction.getJsxSimpleCallfunctionList ().add (visitJsxSimpleCallfunction (ctx.jsxSimpleCallfunction ().get (i)));
@@ -1008,10 +1015,10 @@ BaseVisitor extends ReactParserBaseVisitor {
         jsxSimpleCallfunction.setNode_type ("JsxSimpleCallfunction");
         jsxSimpleCallfunction.setCount_child(ctx.getChildCount());
         jsxSimpleCallfunction.setLine_num(String.valueOf(ctx.getStart().getLine()));
-        //jsxSimpleCallfunction.setNode_name (ctx.id ().toString ());
+        //jsxSimpleCallfunction.setNode_name (ctx.id ().getText ());
         if (ctx.id () !=null){
             Id id = new Id ();
-            id.setId (ctx.id().toString ());
+            id.setId (ctx.id().getText ());
             jsxSimpleCallfunction.setId (id);
             jsxSimpleCallfunction.setNode_name(ctx.id().getText());
             //jsxSimpleCallfunction.setId ((Id) visitId (ctx.id ()));
@@ -1073,36 +1080,36 @@ BaseVisitor extends ReactParserBaseVisitor {
         if (ctx.MultiplyIn () !=null){
             Stringg stringg = new Stringg();
             stringg.setNode_type("Operation");
-            stringg.setString (ctx.MultiplyIn ().toString ());
-            stringg.setNode_name (ctx.MultiplyIn ().toString ());
-            jsxExpression.setOperation (ctx.MultiplyIn ().toString ());
+            stringg.setString (ctx.MultiplyIn ().getText ());
+            stringg.setNode_name (ctx.MultiplyIn ().getText ());
+            jsxExpression.setOperation (ctx.MultiplyIn ().getText ());
             jsxExpression.getChild ().add (stringg);
         }
         if(ctx.OpenParenIn ()!=null)
             jsxExpression.setParen ("(");
 
         if (ctx.DivideIn () !=null){
-            jsxExpression.setOperation (ctx.DivideIn ().toString ());
+            jsxExpression.setOperation (ctx.DivideIn ().getText ());
             Stringg stringg = new Stringg();
             stringg.setNode_type("Operation");
-            stringg.setString (ctx.DivideIn ().toString ());
-            stringg.setNode_name (ctx.DivideIn ().toString ());
+            stringg.setString (ctx.DivideIn ().getText ());
+            stringg.setNode_name (ctx.DivideIn ().getText ());
             jsxExpression.getChild ().add (stringg);
         }
         if (ctx.PlusIn () !=null){
-            jsxExpression.setOperation (ctx.PlusIn ().toString ());
+            jsxExpression.setOperation (ctx.PlusIn ().getText ());
             Stringg stringg = new Stringg();
             stringg.setNode_type("Operation");
-            stringg.setString (ctx.PlusIn ().toString ());
-            stringg.setNode_name (ctx.PlusIn ().toString ());
+            stringg.setString (ctx.PlusIn ().getText ());
+            stringg.setNode_name (ctx.PlusIn ().getText ());
             jsxExpression.getChild ().add (stringg);
         }
         if (ctx.MinusIn () !=null){
-            jsxExpression.setOperation (ctx.MinusIn ().toString ());
+            jsxExpression.setOperation (ctx.MinusIn ().getText ());
             Stringg stringg = new Stringg();
             stringg.setNode_type("Operation");
-            stringg.setString (ctx.MinusIn ().toString ());
-            stringg.setNode_name (ctx.MinusIn ().toString ());
+            stringg.setString (ctx.MinusIn ().getText ());
+            stringg.setNode_name (ctx.MinusIn ().getText ());
             jsxExpression.getChild ().add (stringg);
         }
         if (ctx.NUMBERIn () !=null){
@@ -1292,7 +1299,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             bool.setBool (condition.getBool ());
             bool.setNode_name (condition.getBool ());
             bool.setNode_type ("Bool");
-            condition.setBool (ctx.BooleanLiteral ().toString ());
+            condition.setBool (ctx.BooleanLiteral ().getText ());
             condition.getChild ().add (bool);
         }
         if (ctx.id () !=null){
@@ -1422,7 +1429,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setString (arrowFunction.getAsync ());
             stringg.setNode_name ("async");
             stringg.setNode_type ("async");
-            arrowFunction.setAsync (ctx.Async ().toString ());
+            arrowFunction.setAsync (ctx.Async ().getText ());
             arrowFunction.getChild ().add (stringg);
         }
         if (ctx.arguments () !=null){
@@ -1633,59 +1640,59 @@ BaseVisitor extends ReactParserBaseVisitor {
             expression.getChild().add(expression.getExpressionList().get(i));
         }
         if(ctx.Multiply()!=null){
-            expression.setOperator(ctx.Multiply().toString());
+            expression.setOperator(ctx.Multiply().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("Multiply");
-            stringg.setString(ctx.Multiply().toString());
+            stringg.setString(ctx.Multiply().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.MultiplyModeCall()!=null){
-            expression.setOperator(ctx.MultiplyModeCall().toString());
+            expression.setOperator(ctx.MultiplyModeCall().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("MultiplyModeCall");
-            stringg.setString(ctx.MultiplyModeCall().toString());
+            stringg.setString(ctx.MultiplyModeCall().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.Divide()!=null){
-            expression.setOperator(ctx.Divide().toString());
+            expression.setOperator(ctx.Divide().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("Divide");
-            stringg.setString(ctx.Divide().toString());
+            stringg.setString(ctx.Divide().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.DivideModeCall()!=null){
-            expression.setOperator(ctx.DivideModeCall().toString());
+            expression.setOperator(ctx.DivideModeCall().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("DivideModeCall");
-            stringg.setString(ctx.MultiplyModeCall().toString());
+            stringg.setString(ctx.MultiplyModeCall().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.Plus()!=null){
-            expression.setOperator(ctx.Plus().toString());
+            expression.setOperator(ctx.Plus().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("Plus");
-            stringg.setString(ctx.Plus().toString());
+            stringg.setString(ctx.Plus().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.PlusModeCall()!=null){
-            expression.setOperator(ctx.PlusModeCall().toString());
+            expression.setOperator(ctx.PlusModeCall().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("PlusModeCall");
-            stringg.setString(ctx.PlusModeCall().toString());
+            stringg.setString(ctx.PlusModeCall().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.Minus()!=null){
-            expression.setOperator(ctx.Minus().toString());
+            expression.setOperator(ctx.Minus().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("Minus");
-            stringg.setString(ctx.Minus().toString());
+            stringg.setString(ctx.Minus().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.MinusModeCall()!=null){
-            expression.setOperator(ctx.MinusModeCall().toString());
+            expression.setOperator(ctx.MinusModeCall().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("MinusModeCall");
-            stringg.setString(ctx.MinusModeCall().toString());
+            stringg.setString(ctx.MinusModeCall().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.callIdentifier()!=null){
@@ -1693,17 +1700,17 @@ BaseVisitor extends ReactParserBaseVisitor {
         expression.getChild().add(expression.getCallIdentifier());
         }
         if(ctx.MinusMinus()!=null){
-            expression.setOperator(ctx.MinusMinus().toString());
+            expression.setOperator(ctx.MinusMinus().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("MinusMinus");
-            stringg.setString(ctx.MinusMinus().toString());
+            stringg.setString(ctx.MinusMinus().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.PlusPlus()!=null){
-            expression.setOperator(ctx.PlusPlus().toString());
+            expression.setOperator(ctx.PlusPlus().getText());
             Stringg stringg = new Stringg();
             stringg.setNode_type("PlusPlus");
-            stringg.setString(ctx.PlusPlus().toString());
+            stringg.setString(ctx.PlusPlus().getText());
             expression.getChild().add(stringg);
         }
         if(ctx.data()!=null){
@@ -1792,7 +1799,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             number.setNode_name (ctx.NUMBER ().getText ());
             number.setCount_child(ctx.getChildCount());
             number.setLine_num(String.valueOf(ctx.getStart().getLine()));
-            number.setValue (Integer.parseInt (ctx.NUMBER ().toString ()));
+            number.setValue (Integer.parseInt (ctx.NUMBER ().getText ()));
             data.setNumber (number);
             row.setValue (ctx.NUMBER ().getText ());
             data.setStRow (row);
@@ -1803,7 +1810,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             number.setNode_name (ctx.NUMBERModeCall ().getText ());
             number.setCount_child(ctx.getChildCount());
             number.setLine_num(String.valueOf(ctx.getStart().getLine()));
-            number.setValue (Integer.parseInt (ctx.NUMBERModeCall ().toString ()));
+            number.setValue (Integer.parseInt (ctx.NUMBERModeCall ().getText ()));
             row.setValue (ctx.NUMBERModeCall ().getText ());
             data.setNumber (number);
         }
@@ -1813,7 +1820,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setNode_name (ctx.String ().getText ());
             stringg.setCount_child(ctx.getChildCount());
             stringg.setLine_num(String.valueOf(ctx.getStart().getLine()));
-            stringg.setString (ctx.String ().toString ());
+            stringg.setString (ctx.String ().getText ());
             data.setStringg (stringg);
             row.setValue (ctx.String ().getText ());
             data.setStRow (row);
@@ -1825,7 +1832,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             stringg.setNode_name (ctx.StringModeCall ().getText ());
             stringg.setCount_child(ctx.getChildCount());
             stringg.setLine_num(String.valueOf(ctx.getStart().getLine()));
-            stringg.setString (ctx.StringModeCall ().toString());
+            stringg.setString (ctx.StringModeCall ().getText());
             data.setStringg (stringg);
             row.setValue (ctx.StringModeCall ().getText ());
             data.setStRow (row);
@@ -1842,7 +1849,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             bool.setNode_name (ctx.BooleanLiteral ().getText ());
             bool.setCount_child(ctx.getChildCount());
             bool.setLine_num(String.valueOf(ctx.getStart().getLine()));
-            bool.setBool (ctx.BooleanLiteral ().toString ());
+            bool.setBool (ctx.BooleanLiteral ().getText ());
             data.setBool (bool);
             row.setValue (ctx.BooleanLiteral ().getText ());
 
@@ -1853,7 +1860,7 @@ BaseVisitor extends ReactParserBaseVisitor {
             bool.setNode_name (ctx.BooleanLiteralModeCall ().getText ());
             bool.setCount_child(ctx.getChildCount());
             bool.setLine_num(String.valueOf(ctx.getStart().getLine()));
-            bool.setBool (ctx.BooleanLiteralModeCall ().toString ());
+            bool.setBool (ctx.BooleanLiteralModeCall ().getText ());
             data.setBool (bool);
             row.setValue (ctx.BooleanLiteralModeCall ().getText ());
         }
@@ -2136,6 +2143,8 @@ BaseVisitor extends ReactParserBaseVisitor {
         }
         else if (ctx.IDENTIFIERIn () != null) {
             id.setId(ctx.IDENTIFIERIn ().getText());
+           // System.out.println ("vvvvvvvvvvvvvvvvvv");
+            System.out.println (ctx.IDENTIFIERIn ().getText());
             id.setNode_name(ctx.IDENTIFIERIn ().getText());
         }
 //        StRow row = new StRow();
@@ -2184,21 +2193,21 @@ BaseVisitor extends ReactParserBaseVisitor {
         row.setType("Import");
 
         if (ctx.UseState () !=null){
-            hook.setHook (ctx.UseState ().toString ());
-            hook.setNode_name(ctx.UseState().toString());
+            hook.setHook (ctx.UseState ().getText ());
+            hook.setNode_name(ctx.UseState().getText());
 
         }
         else  if (ctx.UseEffect () !=null){
-            hook.setHook (ctx.UseEffect ().toString ());
-            hook.setNode_name(ctx.UseEffect().toString());
+            hook.setHook (ctx.UseEffect ().getText ());
+            hook.setNode_name(ctx.UseEffect().getText());
         }
         else  if (ctx.UseRef () !=null){
-            hook.setHook (ctx.UseRef ().toString ());
-            hook.setNode_name(ctx.UseRef().toString());
+            hook.setHook (ctx.UseRef ().getText ());
+            hook.setNode_name(ctx.UseRef().getText());
         }
         else  if (ctx.UseMemo () !=null){
-            hook.setHook (ctx.UseMemo ().toString ());
-            hook.setNode_name(ctx.UseMemo().toString());
+            hook.setHook (ctx.UseMemo ().getText ());
+            hook.setNode_name(ctx.UseMemo().getText());
         }
         row.setName (hook.getHook ());
 
