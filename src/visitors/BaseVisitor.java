@@ -731,6 +731,16 @@ BaseVisitor extends ReactParserBaseVisitor {
         if (ctx.CloseBraceCall ()!=null){
             scopes.pop ();
         }
+        if (ctx.JSX_TAG ()!=null){
+            System.out.println ("hhhhh");
+            System.out.println (ctx.JSX_TAG ().getText ());
+            jsxElementNonSelfClosing.setJsxTag (ctx.JSX_TAG ().getText ());
+        }
+        if (ctx.JSX_TAGModeCall ()!=null){
+            System.out.println ("kkkkk");
+            System.out.println (ctx.JSX_TAGModeCall ().getText ());
+            jsxElementNonSelfClosing.setJsxTag (ctx.JSX_TAGModeCall ().getText ());
+        }
         for (int i=0;i<ctx.LETTERR().size();i++) {
             jsxElementNonSelfClosing.getLetterrs().add(ctx.LETTERR(i).toString());
             Stringg stringg = new Stringg();

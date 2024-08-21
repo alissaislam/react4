@@ -75,7 +75,7 @@ public class Parameters extends Node  {
             content= expression.generateCode();
         }
         if(blockOfarguments!=null){
-            content= blockOfarguments.getHtml();
+            content= blockOfarguments.generateCode ();
         }
         return content ;
     }

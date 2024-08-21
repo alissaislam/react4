@@ -18,6 +18,7 @@ public class Arguments extends Node {
         StringBuilder content = new StringBuilder();
 
         if (!parametersList.isEmpty ()) {
+
             for(int i =0 ; i<parametersList.size (); i++){
                 if(i==parametersList.size ()-1)
                     content.append(parametersList.get (i).generateCode());
