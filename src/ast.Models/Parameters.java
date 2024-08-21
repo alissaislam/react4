@@ -61,12 +61,14 @@ public class Parameters extends Node  {
             content= arrowFunction.generateCode();
         }
         if(callIdentifier !=null){
-            content = callFunction.generateCode();
+            content = callIdentifier.generateCode();
         }
         if(argument!=null){
             content = argument.generateCode();
         }
+        System.out.println("jjjjjjjjjjjjjjjjjjjjjjj");
         if(callFunction!=null){
+            System.out.println ("kkkkkkkkkkkkk");
             content=callFunction.generateCode();
         }
         if(expression!=null){

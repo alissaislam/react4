@@ -22,7 +22,14 @@ public class Start extends Node{
 
     public String getHTML() {
         System.out.println("in getHtml ");
-        String content = "helooo world";
+        //String content = "helooo world";
+        StringBuilder content = new StringBuilder();
+        if(!statement_list.isEmpty ()){
+            for ( Statement statement :statement_list){
+
+                content.append (statement.generateCode ());
+            }
+        }
         try {
 
             File directory = new File("HTML_output");
