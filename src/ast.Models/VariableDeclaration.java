@@ -69,7 +69,7 @@ public class VariableDeclaration extends Node{
         StringBuilder content = new StringBuilder();
 
         if (kind != null) {
-            content.append (kind.generateCode ());
+            content.append (kind.generateCode ()).append (" ");
         }
         if (id != null) {
             content.append(id.generateCode());
@@ -77,7 +77,7 @@ public class VariableDeclaration extends Node{
         if (expression != null||arrowFunction != null||callFunction != null||callIdentifier != null) {
             content.append("=");
             if (expression != null) {
-                content.append(expression);
+                content.append(expression.generateCode ());
             }
             if (arrowFunction != null) {
                 content.append(arrowFunction.generateCode());

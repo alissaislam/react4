@@ -211,7 +211,7 @@ public class StatementElement extends Node {
         } else if (tryCatch != null) {
             content = tryCatch.generateCode();
         } else if (importElement != null) {
-            content = importElement.generateCode();
+           // content = importElement.generateCode();
         } else if (ifShort != null) {
             content = ifShort.generateCode();
         } else if (sequence != null) {
