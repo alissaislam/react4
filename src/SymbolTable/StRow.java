@@ -4,7 +4,16 @@ import SymbolTable.Scope;
 import java.util.Stack;
 
 public class StRow {
-    String type,name,value, kind = "*";
+     String type,name,value,line_number, kind = "*";
+
+    public String getLine_number() {
+        return line_number;
+    }
+
+    public void setLine_number(String line_number) {
+        this.line_number = line_number;
+    }
+
     boolean Assigned =false;
     Scope scope = new Scope ();
 

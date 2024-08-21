@@ -1,6 +1,6 @@
 package Error.Handling;
 
-public class Error {
+public class Error extends Throwable {
     private String name;
     private String message;
 

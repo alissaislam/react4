@@ -1,4 +1,5 @@
 import Error.Handling.Handle;
+import Error.Handling.JSXError;
 import antlr.ReactLexer;
 import antlr.ReactParser;
 import ast.Models.Id;
@@ -34,7 +35,9 @@ public class Main {
         Start  doc = (Start) new BaseVisitor().visit(tree);
         print (doc);
         BaseVisitor.getSymbolTable ().print ();
-        Handle.errorCheck();
+
+        JSXError.printErrors();
+        BaseVisitor.errorHandling();
 
     }
     public static void print(Node root) {

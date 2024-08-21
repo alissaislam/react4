@@ -1,6 +1,9 @@
 package visitors;
 
 
+import Error.Handling.Error;
+import Error.Handling.Handle;
+import Error.Handling.JSXError;
 import SymbolTable.SymbolTable;
 import SymbolTable.StRow;
 import antlr.ReactParser;
@@ -13,8 +16,8 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class
@@ -700,6 +703,8 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElement.setJsxElementSelfClosing ((JsxElementSelfClosing) visitJsxElementSelfClosing (ctx.jsxElementSelfClosing ()));
             jsxElement.getChild ().add (jsxElement.getJsxElementSelfClosing ());
         }
+
+
 //        StRow row = new StRow();
 //        row.setType(jsxElement.getNode_type());
 //        row.setName(jsxElement.getNode_type());
@@ -713,6 +718,10 @@ BaseVisitor extends ReactParserBaseVisitor {
         jsxElementNonSelfClosing.setNode_type("JsxElementNonSelfClosing");
         jsxElementNonSelfClosing.setCount_child(ctx.getChildCount());
         jsxElementNonSelfClosing.setLine_num(String.valueOf(ctx.getStart().getLine()));
+
+
+
+
 
         for (int i=0;i<ctx.attribute ().size();i++) {
             jsxElementNonSelfClosing.getAttributes().add(visitAttribute (ctx.attribute(i)));
@@ -756,6 +765,39 @@ BaseVisitor extends ReactParserBaseVisitor {
 //        row.setName(jsxElementNonSelfClosing.getNode_type());
 //        symbolTable.getRows().add(row);
 
+        String openJsx;
+        String closeJsx;
+        openJsx = (ctx.JSX_TAG() != null) ? ctx.JSX_TAG().toString() : null;
+        closeJsx = (ctx.CLOSE_TAGIn() != null) ? ctx.CLOSE_TAGIn().toString() : null;
+
+        if (openJsx != null && closeJsx != null) {
+            if(!openJsx.substring(1).equals(closeJsx.substring(2))){
+                JSXError.getErrors().add(new Error("Jsx syntax error","Mismatched tag on line "+ ctx.JSX_TAG().getSymbol().getLine()));
+            }
+        }
+
+
+        if(!jsxElementNonSelfClosing.getAttributes().isEmpty()){
+            String firstAttribute = null;
+            System.out.println(jsxElementNonSelfClosing.getAttributes().getFirst().getId().getId());
+
+            if (jsxElementNonSelfClosing.getAttributes().getFirst().getId().getId() != null) {
+            firstAttribute = jsxElementNonSelfClosing.getAttributes().getFirst().getId().getId();
+            }
+            if(firstAttribute!=null){
+                for (int i=1;i<jsxElementNonSelfClosing.getAttributes().size();i++){
+                    String secondAttribute = null;
+                    if(jsxElementNonSelfClosing.getAttributes().get(i).getId().getId()!=null){
+                        secondAttribute = jsxElementNonSelfClosing.getAttributes().get(i).getId().getId();
+                        if(secondAttribute!=null){
+                            if(secondAttribute.equals(firstAttribute)){
+                                JSXError.getErrors().add(new Error("JSX attribute duplication error","JSX attributes must only be assigned once "+secondAttribute + " was used multiple times on line :" + jsxElementNonSelfClosing.getAttributes().get(i).getLine_num()));
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return jsxElementNonSelfClosing;
     }
 
@@ -805,7 +847,27 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElementSelfClosing.getChild().add(jsxElementSelfClosing.getAttributes().get(i));
 
         }
+        if(!jsxElementSelfClosing.getAttributes().isEmpty()){
+            String firstAttribute = null;
+            System.out.println(jsxElementSelfClosing.getAttributes().getFirst().getId().getId());
 
+            if (jsxElementSelfClosing.getAttributes().getFirst().getId().getId() != null) {
+                firstAttribute = jsxElementSelfClosing.getAttributes().getFirst().getId().getId();
+            }
+            if(firstAttribute!=null){
+                for (int i=1;i<jsxElementSelfClosing.getAttributes().size();i++){
+                    String secondAttribute = null;
+                    if(jsxElementSelfClosing.getAttributes().get(i).getId().getId()!=null){
+                        secondAttribute = jsxElementSelfClosing.getAttributes().get(i).getId().getId();
+                        if(secondAttribute!=null){
+                            if(secondAttribute.equals(firstAttribute)){
+                                JSXError.getErrors().add(new Error("JSX attribute duplication error","JSX attributes must only be assigned once "+secondAttribute + " was used multiple times on line :" + jsxElementSelfClosing.getAttributes().get(i).getLine_num()));
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return jsxElementSelfClosing;
 
     }
@@ -1372,6 +1434,7 @@ BaseVisitor extends ReactParserBaseVisitor {
         if(ctx.kind ()!=null)
         row.setKind (String.valueOf (variableDeclaration.getKind ().getType ()));
         row.setName (variableDeclaration.getId ().getId ());
+        row.setLine_number(variableDeclaration.getLine_num());
         if (ctx.Assign ()!= null)
             row.setAssigned (true);
         row.setScope (scopes);
@@ -2323,5 +2386,109 @@ BaseVisitor extends ReactParserBaseVisitor {
     @Override
     public Object visitErrorNode(ErrorNode errorNode) {
         return null;
+    }
+    public static void errorHandling(){
+        SymbolTable symbolTable = BaseVisitor.getSymbolTable();
+        List<StRow> rows = symbolTable.getRows();
+        errorCheck(rows);
+    }
+    public static void errorCheck(List<StRow> rows) {
+        for (int i = 0; i < rows.size(); i++) {
+            if (Objects.equals(rows.get(i).getType(), "VariableDeclaration")) {
+                if (isDeclaring(rows.get(i))) {
+                    canDeclare(rows.get(i), i,rows);
+                } else {
+                    canRead(rows.get(i), i,rows);
+                }
+            }
+
+        }
+        printErrors();
+    }
+
+    public static void canDeclare(StRow rowIn, int index,List<StRow> rows) {
+        if (!constAssigned(rowIn)) {
+            Handle.getErrors().add(new Error("SyntaxError : ", " Missing initializer in const declaration on line :"+ rowIn.getLine_number()));
+        }
+        for (StRow row : rows) {
+            if (row == rowIn) {
+                continue;
+            }
+            if (isReachable(row, rowIn)) {
+                if (constReassign(row, rowIn) && nameEqual(row, rowIn)) {
+                    Handle.getErrors().add(new Error("TypeError: ", "Assignment to constant variable on line :" + rowIn.getLine_number()));
+                }
+
+
+            }
+            if (sameScope(row, rowIn)) {
+                if (!(!isBlockScoped(row) && !isBlockScoped(rowIn)) && nameEqual(row, rowIn) && isDeclaring(row)) { //change if statement
+                    Handle.getErrors().add((new Error("SyntaxError: ", "Identifier '" + rowIn.getName() + "' has already been declared on line :" + rowIn.getLine_number())));
+                }
+
+            }
+        }
+    }
+
+    private static boolean constAssigned(StRow row) {
+        return !isConst(row) || row.isAssigned();
+    }
+
+    public static void canRead(StRow rowIn, int index,List<StRow> rows) {
+        for (int i = 0; i < rows.size(); i++) {
+            if (rows.get(i) == rowIn) {
+                continue;
+            }
+
+            if (isHigher(rows.get(i), rowIn) && i < index) {
+                if (isDeclaring(rows.get(i)) && nameEqual(rows.get(i), rowIn)) {
+                    return;
+                }
+            }
+        }
+        Handle.getErrors().add(new Error("ReferenceError: ", rowIn.getName() + " is not defined on line :" + rowIn.getLine_number()));
+    }
+
+    //const reassign
+    public static boolean constReassign(StRow row1, StRow row2) {
+        return row1.getKind().equals("const") && row2.isAssigned() && Objects.equals(row2.getKind(), "*");
+    }
+
+    public static boolean nameEqual(StRow row1, StRow row2) {
+        return Objects.equals(row1.getName(), row2.getName());
+    }
+
+    public static boolean isHigher(StRow row1, StRow row2) {
+        return row1.getScope().getLevel() >= row2.getScope().getLevel();
+    }
+
+    public static boolean isReachable(StRow row1, StRow row2) {
+        return row1.getScope().getgId() == row2.getScope().getgId();
+    }
+
+    public static boolean sameScope(StRow row1, StRow row2) {
+        return row1.getScope().getId() == row2.getScope().getId();
+    }
+
+    public static boolean isConst(StRow row) {
+        return row.getKind().equals("const");
+    }
+
+    public static boolean isReading(StRow row) {
+        return row.getKind().equals("*");
+    }
+
+    public static boolean isBlockScoped(StRow row) {
+        return (row.getKind().equals("let") || row.getKind().equals("const")) && !row.getKind().equals("*");
+    }
+
+    public static void printErrors() {
+        for (Error error : Handle.getErrors()) {
+            System.err.println("Error name :" + error.getName() + " Error message: " + error.getMessage());
+        }
+    }
+
+    public static boolean isDeclaring(StRow row) {
+        return row.getKind().equals("const") || row.getKind().equals("var") || row.getKind().equals("let");
     }
 }
