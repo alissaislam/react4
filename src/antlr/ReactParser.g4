@@ -65,7 +65,7 @@ options{tokenVocab=ReactLexer;}
     | jsxCallIdentifier
     | jsxExpression
     ;
-    ////// islam part
+    //////
     jsxArrowFunction:(OpenParenIn jsxArguments? CloseParenIn | jsxArgument ) ARROWIn (jsxExpression? | OpenBraceIn jsxExpression* CloseBraceIn );
     jsxCallfunction :(id ( DotIn id | DotIn jsxSimpleCallfunction)+ | jsxSimpleCallfunction) ;
     jsxSimpleCallfunction : id OpenParenIn jsxArguments? CloseParenIn ;
@@ -86,13 +86,7 @@ options{tokenVocab=ReactLexer;}
     (openParen (jsxElement) closeParen)
     |jsxElement
     ) (SemiColon|SemiColonModeCall)* (IgSemiColon|IgSemiColonModeCall) *;
-
-
-
-
-
     block:OpenBrace (statment )* CloseBrace;
-
     else_if : Else If OpenParen conditions CloseParen  ( block | statment ) ;
     else :  Else ( block | statment) ;
     forLoopParts : (kind? variableDeclaration SemiColon conditions SemiColon ( variableDeclaration | id (PlusPlus|MinusMinus))| id id Colon callIdentifier ) ;
@@ -103,7 +97,7 @@ options{tokenVocab=ReactLexer;}
     arguments : parameters((Comma|CommaModeCall) parameters)*;
 
     blockOfarguments :OpenBrace arguments CloseBrace;
-      variableDeclaration : kind? (id) (( Assign (expression | callfunction | callIdentifier | arrowFunction) )? )  ;
+    variableDeclaration : kind? (id) (( Assign (expression | callfunction | callIdentifier | arrowFunction) )? )  ;
     variableDeclarationList : variableDeclaration ( Comma variableDeclaration )* ;
 
     arrowFunction: Async?(openParen arguments? closeParen | id )(ARROW|ARROWModeCall)
@@ -146,8 +140,6 @@ options{tokenVocab=ReactLexer;}
                | NullLiteralModeCall
                | blockOfarguments
                ;
-
-
     callIdentifier: id ((Dot|DotModeCall) id  )*;
     expression:  openParen expression ((Multiply|MultiplyModeCall) | (Divide|DivideModeCall)) expression closeParen
                | openParen expression( (Plus|PlusModeCall) | (Minus|MinusModeCall)) expression closeParen
@@ -157,7 +149,6 @@ options{tokenVocab=ReactLexer;}
                | data
                ;
     export:Export Default callIdentifier SemiColon* IgSemiColon *;
-
     data :
           array
         | (NUMBER|NUMBERModeCall)
@@ -166,15 +157,12 @@ options{tokenVocab=ReactLexer;}
         | map
         |(BooleanLiteral|BooleanLiteralModeCall)
         ;
-
-         array : OpenBracket suquence? CloseBracket  ;
+    array : OpenBracket suquence? CloseBracket  ;
+    suquence : data(Comma data )* ;
     map :OpenBrace (mapElementList)* CloseBrace ;
     mapElementList: mapElement (Comma mapElement)*;
     mapElement:IDENTIFIER Colon ( callfunction | callIdentifier | expression );
 
-
-
-    suquence : data(Comma data )* ;
     kind:    Const
            | Let
            | Var;
@@ -195,7 +183,6 @@ options{tokenVocab=ReactLexer;}
                    | IdentityNotEquals
                    | IdentityNotEqualsModeCall
                    ;
-                   
     id:IDENTIFIER|Id|IDENTIFIERIn;
     openParen:OpenParen|OpenParenModeCall;
     closeParen:CloseParen|CloseParenModeCall;
@@ -203,5 +190,5 @@ options{tokenVocab=ReactLexer;}
     closeBrace:CloseBrace|CloseBraceModeCall;
     openBrace:OpenBrace|OpenBraceModeCall;
     jsx_tag:JSX_TAGIn|JSX_TAGInIn|JSX_TAG;
-                   
     break:Break;
+
