@@ -1,5 +1,7 @@
+import './App.css';
 import React from 'react';
-import  {useState}  from 'react';
+import ProductCard from './ProductCard';
+import { useState } from 'react'; // Corrected the import for useState
 
 const products = [
   { id: 1, name: 'First product', image: 'image url', description: 'This is First product.' },
@@ -7,32 +9,55 @@ const products = [
   { id: 3, name: 'Third product', image: 'image url', description: 'This is Third product.' }
 ];
 
-function ProductCard({ product, onProductClick }) {
-  return (
-    <div onClick={() => onProductClick(product)}>
-      <h3>{product.name}</h3>
-      <img src={product.image} />
-    </div>
-  );
-}
-
-function App() {
+function App() { // Added "function" to properly define the component
   const [expandedProduct, setExpandedProduct] = useState(null);
 
   const handleProductClick = (product) => {
     setExpandedProduct(product);
-  };
+  }
 
   return (
     <div className="App">
-    {
-
-    }
-    {
-
-    }
-  </div>
-    );
+      {
+        (() => {
+          if (products.length > 0) {
+            return (
+              products.map(product =>
+                <div key={product.id} className='product'>
+                  <ProductCard product={product} onProductClick={handleProductClick} />
+                </div>
+              )
+            );
+          } else {
+            return (
+              <div className="empty">
+                <h2>No products found.</h2>
+              </div>
+            );
+          }
+        })()
+      }
+      {
+        (() => {
+          if (expandedProduct === null) {
+            return (
+              <div>
+                <h2>No expanded product</h2>
+              </div>
+            );
+          } else {
+            return (
+              <div className="expanded-product">
+                <h2>{expandedProduct.name}</h2>
+                <img src={expandedProduct.image} alt={expandedProduct.name} />
+                <p>{expandedProduct.description}</p>
+              </div>
+            );
+          }
+        })()
+      }
+    </div>
+  );
 }
 
 export default App;
