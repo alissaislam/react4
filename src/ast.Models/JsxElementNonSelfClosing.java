@@ -12,6 +12,8 @@ public class JsxElementNonSelfClosing extends Node {
     List<JsxElementIn> jsxElementIns = new ArrayList<>();
     List<BlockOfarguments> blockOfarguments = new ArrayList<>();
 
+    List<String> id=new ArrayList<> ();
+
     // Existing getters and setters
     public String getJsxTag() {
         return jsxTag;
@@ -79,8 +81,21 @@ public class JsxElementNonSelfClosing extends Node {
 
         // Append any IfShort elements
         for (IfShort ifShort : ifShorts) {
+            code.append ("{");
             code.append(ifShort.generateCode());
+            code.append ("}");
         }
+        if (!id.isEmpty ()) {
+            for(int j =0 ; j<id.size (); j++){
+                if(j==id.size ()-1)
+                    code.append(id.get (j));
+                else {
+                    code.append(id.get (j));
+                    code.append(".");
+                }
+            }
+        }
+
 
         // Append any letters
         for (String letter : letterrs) {
@@ -98,7 +113,7 @@ public class JsxElementNonSelfClosing extends Node {
         }
 
         // Close the JSX tag
-        code.append("</").append(jsxTag).append(">");
+        code.append(jsxTag.substring (0,1)+" / "+jsxTag.substring (1)).append(">");
 
         return code.toString();
     }

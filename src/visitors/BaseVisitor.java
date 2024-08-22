@@ -761,6 +761,9 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElementNonSelfClosing.getBlockOfarguments().add(visitBlockOfarguments(ctx.blockOfarguments(i)));
             jsxElementNonSelfClosing.getChild().add(jsxElementNonSelfClosing.getBlockOfarguments().get(i));
         }
+        if (!ctx.Id ().isEmpty ()){
+
+        }
 //        StRow row = new StRow();
 //        row.setType(jsxElementNonSelfClosing.getNode_type());
 //        row.setName(jsxElementNonSelfClosing.getNode_type());
@@ -808,6 +811,10 @@ BaseVisitor extends ReactParserBaseVisitor {
         jsxElementSelfClosing.setCount_child(ctx.getChildCount());
         jsxElementSelfClosing.setLine_num(String.valueOf(ctx.getStart().getLine()));
 
+        if (ctx.jsx_tag ()!=null){
+            jsxElementSelfClosing.setJsxTag (ctx.jsx_tag ().getText ());
+        }
+
         for (int i=0;i<ctx.attribute ().size();i++) {
 
             jsxElementSelfClosing.getAttributes().add( visitAttribute (ctx.attribute ().get (i)));
@@ -827,6 +834,17 @@ BaseVisitor extends ReactParserBaseVisitor {
         jsxElementIn.setCount_child(ctx.getChildCount());
         jsxElementIn.setLine_num(String.valueOf(ctx.getStart().getLine()));
 
+        if(!ctx.Id ().isEmpty ()){
+            jsxElementIn.setId1 (ctx.Id ().get (0).getText ());
+            jsxElementIn.setId2 (ctx.Id ().get (1).getText ());
+        }
+        if (!ctx.MinusMinusModeCall ().isEmpty ()){
+            jsxElementIn.setOp (ctx.MinusMinusModeCall ().get(0).getText ());
+        }
+        if (!ctx.MinusMinusModeCall ().isEmpty ()){
+            jsxElementIn.setOp (ctx.PlussPlussModeCall ().get(0).getText ());
+
+        }
         if(ctx.JSX_TAGIn ()!=null){
             jsxElementIn.setJsxTag (ctx.JSX_TAGIn ().getText ());
         }
@@ -864,6 +882,9 @@ BaseVisitor extends ReactParserBaseVisitor {
             jsxElementIn.getAttributes().add(visitAttribute (ctx.attribute(i)));
             jsxElementIn.getChild().add(jsxElementIn.getAttributes().get(i));
 
+        }
+        if (ctx.CLOSE_TAGIn ()!=null){
+            jsxElementIn.setClose (ctx.CLOSE_TAGIn ().getText ());
         }
 
         return jsxElementIn;

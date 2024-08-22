@@ -71,13 +71,21 @@ public class IfShort extends Node {
 
         // Handle statements or jsxElements before the colon
         if (!statements.isEmpty()) {
+            code.append ("(");
             for (Statement statement : statements) {
                 code.append(statement.generateCode());
             }
+//            code.append (" b");
+            code.append (" )");
+//            code.append ("a");
         } else if (!jsxElements.isEmpty()) {
+            code.append ("(");
             for (JsxElement jsxElement : jsxElements) {
                 code.append(jsxElement.generateCode());
             }
+            code.append (" b");
+            code.append (")");
+            code.append ("a");
         }
 
         // Add colon
@@ -85,15 +93,18 @@ public class IfShort extends Node {
 
         // Handle statements or jsxElements after the colon
         if (!statements.isEmpty()) {
+            code.append ("(");
             for (Statement statement : statements) {
                 code.append(statement.generateCode());
             }
+            code.append (")");
         } else if (!jsxElements.isEmpty()) {
+            code.append ("(");
             for (JsxElement jsxElement : jsxElements) {
                 code.append(jsxElement.generateCode());
             }
+            code.append (")");
         }
-
         return code.toString();
     }
 }

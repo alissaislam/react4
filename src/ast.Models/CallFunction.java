@@ -37,6 +37,8 @@ public class CallFunction extends Parameters {
             }
         } else if (!callIdentifiers.isEmpty()) {
             code.append(callIdentifiers.get(0).generateCode());
+            System.out.println ("gggggggggggggg");
+            System.out.println (callIdentifiers.get(0).generateCode());
             for (int i = 1; i < callIdentifiers.size(); i++) {
                 code.append(".").append(callIdentifiers.get(i).generateCode());
             }

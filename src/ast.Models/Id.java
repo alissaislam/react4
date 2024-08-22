@@ -11,8 +11,6 @@ public class Id extends  JsxExpression {
     }
 
     public String getId() {
-        System.out.println ("eeeeeeeeeeeee");
-        System.out.println (id);
         return id;
     }
 

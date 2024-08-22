@@ -20,16 +20,16 @@ public class CallIdentifier extends Parameters {
 
     public String generateCode() {
         StringBuilder content = new StringBuilder();
-        int idCount = ids.size();
-        for (int i = 0; i < idCount; i++) {
-            Id id = ids.get(i);
-            if (id != null) {
-                content.append(id.generateCode());
-            }
-            //No trailing dot after the last identifier.
-            //No dot added when there's only one identifier.
-            if (idCount > 1 && i < idCount - 1) {
-                content.append(".");
+        if (!ids.isEmpty ()) {
+            for(int i =0 ; i<ids.size (); i++){
+                if(i==ids.size ()-1){
+//                    System.out.println ("fffffffffffffffffff");
+//                    System.out.println (ids.get (i).generateCode());
+                    content.append(ids.get (i).generateCode());}
+                else {
+                    content.append(ids.get (i).generateCode());
+                    content.append(".");
+                }
             }
         }
         return content.toString();

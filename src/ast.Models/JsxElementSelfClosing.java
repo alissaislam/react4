@@ -30,7 +30,7 @@ public class JsxElementSelfClosing extends Node {
         StringBuilder code = new StringBuilder();
 
         // Start the tag with '<' and the jsxTag
-        code.append("<").append(jsxTag);
+        code.append(jsxTag.charAt (0)+" "+jsxTag.substring (1));
 
         // Add attributes, if any
         for (Attribute attribute : attributes) {
@@ -39,7 +39,7 @@ public class JsxElementSelfClosing extends Node {
                 code.append("\"").append(attribute.getStringg().getString()).append("\"");
             } else if (attribute.getBlockIn() != null) {
                 // Assuming BlockIn or other types should be converted to a string representation
-                code.append("{").append(attribute.getBlockIn().generateCode()).append("}");
+                code.append(attribute.getBlockIn().generateCode());
             }
         }
 
