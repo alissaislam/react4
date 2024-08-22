@@ -1,5 +1,7 @@
 package ast.Models;
 
+import java.util.Objects;
+
 public class Attribute extends Node {
     // Existing fields
     Id id;
@@ -37,7 +39,9 @@ public class Attribute extends Node {
 
         // Start with the ID
         if (id != null) {
-            code.append(id.generateCode()); // Directly use generateCode of Id
+            if (Objects.equals (id.getId (), "className"))
+                id.setId ("class");
+            code.append(id.getId ()); // Directly use generateCode of Id
         }
 
         // Add the assignment and the value (blockIn or stringg)

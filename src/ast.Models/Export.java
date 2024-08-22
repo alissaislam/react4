@@ -30,8 +30,9 @@ public class Export extends Node {
     }
 
     public String generateCode() {
-        return "export default " +
-                callIdentifier.generateCode() +
-                ";";
+        return" ";
+                //"export default " +
+//                callIdentifier.generateCode() +
+//                ";";
     }
 }

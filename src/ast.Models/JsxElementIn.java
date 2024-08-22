@@ -12,6 +12,45 @@ public class JsxElementIn extends Node {
     List<BlockOfarguments> blockOfarguments = new ArrayList<>();
     JsxElementSelfClosing jsxElementSelfClosing;
 
+    String id1;
+    String id2;
+
+    String  op;
+
+    String close;
+
+    public String getClose() {
+        return close;
+    }
+
+    public void setClose(String close) {
+        this.close = close;
+    }
+
+    public String getOp() {
+        return op;
+    }
+
+    public void setOp(String op) {
+        this.op = op;
+    }
+
+    public String getId1() {
+        return id1;
+    }
+
+    public void setId1(String id1) {
+        this.id1 = id1;
+    }
+
+    public String getId2() {
+        return id2;
+    }
+
+    public void setId2(String id2) {
+        this.id2 = id2;
+    }
+
     // Existing getters and setters
     public String getJsxTag() {
         return jsxTag;
@@ -79,6 +118,19 @@ public class JsxElementIn extends Node {
 
             code.append(">");
 
+            if (id1!=null){
+            code.append ("{");
+            code.append (id1);
+            }
+            if (id2!=null){
+            code.append (".");
+            code.append (id2);
+            }
+            if (op!=null) {
+                code.append (" ").append (op);
+            }
+            code.append ("}");
+
             // Append child elements and content
             for (JsxElementIn jsxElementIn : jsxElementIns) {
                 code.append(jsxElementIn.generateCode());
@@ -93,7 +145,7 @@ public class JsxElementIn extends Node {
             }
 
             // Close the JSX tag
-            code.append("</").append(jsxTag).append(">");
+            code.append(close.charAt (0)+" "+close.substring (1)).append(">");
         }
 
         return code.toString();

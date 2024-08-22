@@ -26,34 +26,10 @@ function App() {
   return (
     <div className="App">
     {
-      products.length >0
-      ?
-      (products.map(product =>
-        <div className={product.id} className='product'>
-          <ProductCard  product={product} onProductClick={handleProductClick} />
-        </div>
-      ))
-      :
 
-        <div className="empty">
-        <h2>No products found.</h2>
-        </div>
     }
     {
-      expandedProduct==null?
 
-        <div>
-        <h2>No expanded product </h2>
-        </div>
-
-      :
-      (
-        <div className="expanded-product">
-           <h2>{expandedProduct.name}</h2>
-           <img src={expandedProduct.image} alt={expandedProduct.name} />
-           <p>{expandedProduct.description}</p>
-         </div>
-      )
     }
   </div>
     );
