@@ -2561,7 +2561,6 @@ BaseVisitor extends ReactParserBaseVisitor {
 
     //const reassign
     public static boolean constReassign(StRow row1, StRow row2) {
-        System.out.println(row1.getKind());
         return row1.getKind().equals("const") && row2.isAssigned() && Objects.equals(row2.getKind(), "*");
     }
 
