@@ -16,6 +16,7 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Objects;
 
@@ -2523,7 +2524,8 @@ BaseVisitor extends ReactParserBaseVisitor {
                 continue;
             }
             if (isReachable(row, rowIn)) {
-                if (constReassign(row, rowIn) && nameEqual(row, rowIn)) {
+
+                if (constReassign(rowIn, row) && nameEqual(row, rowIn)) {
                     Handle.getErrors().add(new Error("TypeError: ", "Assignment to constant variable on line :" + rowIn.getLine_number()));
                 }
 
@@ -2559,6 +2561,7 @@ BaseVisitor extends ReactParserBaseVisitor {
 
     //const reassign
     public static boolean constReassign(StRow row1, StRow row2) {
+        System.out.println(row1.getKind());
         return row1.getKind().equals("const") && row2.isAssigned() && Objects.equals(row2.getKind(), "*");
     }
 
